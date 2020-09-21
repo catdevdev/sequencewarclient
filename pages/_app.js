@@ -1,20 +1,31 @@
 // import App from 'next/app'
 
-import GlobalStyled from '../theme/globalStyles';
-import { Fragment } from 'react';
+import GlobalStyled from "../theme/globalStyles";
+import { Fragment } from "react";
 
-import Header from '../components/Layout/Header/Header';
-import Footer from '../components/Layout/Footer/Footer';
+import Head from "next/head";
+
+import Main from "../components/Layout/Main";
 
 function MyApp({ Component, pageProps }) {
-	return (
-		<Fragment>
-			<GlobalStyled />
-			<Header />
-			<Component {...pageProps} />
-			<Footer />
-		</Fragment>
-	);
+  return (
+    <Fragment>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+        ></meta>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
+      <GlobalStyled />
+      <Main>
+        <Component {...pageProps} />
+      </Main>
+    </Fragment>
+  );
 }
 
 // Only uncomment this method if you have blocking data requirements for

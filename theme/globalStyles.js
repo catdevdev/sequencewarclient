@@ -1,7 +1,17 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   
+ @font-face {
+   font-family: "Space Mono";
+   font-weight: 400;
+   src: url("fonts/SpaceMono-Regular.ttf");
+ }
+ @font-face {
+   font-family: "Space Mono";
+   font-weight: 700;
+   src: url("fonts/SpaceMono-Bold.ttf");
+ }
 
   * {
     margin: 0;
@@ -11,7 +21,10 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     height:100%;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Space Mono', sans-serif;
+
+    font-size: 50px;
+    color: #fff;
     
   }
 `;
