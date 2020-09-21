@@ -2,9 +2,11 @@ import Head from "next/head";
 
 import styled from "styled-components";
 
-import Header from "../components/Layout/Header";
+import Container from "../components/Layout/Container";
 
-import Button from "../components/UI/Button";
+import Header from "../components/Layout/Header";
+import Window from "../components/UI/Window";
+
 import Background from "../components/UI/Background";
 
 export default function Home() {
@@ -16,6 +18,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header></Header>
+      <Container>
+        <Window></Window>
+      </Container>
     </div>
   );
 }
