@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   
@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
-    
+    box-sizing: border-box;
   }
 
   html {
@@ -25,7 +25,11 @@ const GlobalStyle = createGlobalStyle`
 
     font-size: 50px;
     color: #fff;
-    
+  }
+
+  button, input {
+    font-family: 'Space Mono', sans-serif;
+    color: #fff;
   }
 `;
 

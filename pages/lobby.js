@@ -7,23 +7,22 @@ import Container from '../components/Layout/Container';
 import Header from '../components/Layout/Header';
 
 import Window from '../components/UI/Window';
-import Rooms from '../components/UI/Window/Rooms';
+import LobbyList from '../components/UI/Window/LobbyList';
 import Chat from '../components/UI/Window/Chat';
 import Online from '../components/UI/Window/Online';
 
 import Background from '../components/UI/Background';
 import VerticalLine from '../components/UI/VerticalLine';
 
-
-export default function Home() {
+const Lobby = () => {
   return (
     <>
-      <Background url={'images/background-mainmenu.jpg'}></Background>
+      <Background url={'images/background-lobby.jpg'}></Background>
       <Head>
         <title>Game Lobby</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header currentRoute="MAIN MENU"></Header>
+      <Header currentRoute="LOBBY"></Header>
       <Container>
         <Window>
           <div
@@ -41,7 +40,7 @@ export default function Home() {
                 justifyContent: 'flex-start',
               }}
             >
-              <Rooms />
+              <LobbyList></LobbyList>
 
               <Chat></Chat>
             </div>
@@ -54,12 +53,12 @@ export default function Home() {
               }}
             >
               <Online></Online>
-
-              
             </div>
           </div>
         </Window>
       </Container>
     </>
   );
-}
+};
+
+export default Lobby;

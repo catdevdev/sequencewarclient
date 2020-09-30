@@ -1,12 +1,14 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const RowContainer = styled.div`
   width: 100%;
-  height: 25px;
+
   /* height: ${({ primary }) => primary}; */
 
   display: flex;
   justify-content: flex-start;
+
+  ${({ lineEveryRow }) => lineEveryRow && 'border-top: 1px solid #fff'};
 `;
 
 const Cell = styled.div`
@@ -14,7 +16,7 @@ const Cell = styled.div`
   height: 100%;
 
   display: flex;
-  justify-content: ${({ center }) => center && "center"};
+  justify-content: ${({ center }) => center && 'center'};
   align-items: center;
 `;
 
@@ -43,7 +45,16 @@ const Button = styled.button`
   color: #fff;
 `;
 
-const Row = ({ primary, dataPrimary, widthCells, rowData }) => {
+const Triangle = styled.div`
+  margin: 10px 0;
+  width: 0;
+  height: 0;
+  border-top: 35px solid transparent;
+  border-left: 65px solid ${({ color }) => color};
+  border-bottom: 35px solid transparent;
+`;
+
+const Row = ({ lineEveryRow, primary, dataPrimary, widthCells, rowData }) => {
   return (
     <>
       {primary ? (
@@ -61,18 +72,24 @@ const Row = ({ primary, dataPrimary, widthCells, rowData }) => {
         </>
       ) : (
         <>
-          <RowContainer>
-            {rowData.map(({ data, button, center }, index) => {
-              if (data && !button)
+          <RowContainer lineEveryRow={lineEveryRow}>
+            {rowData.map(({ data, button, colorSpaceship, center }, index) => {
+              if (data)
                 return (
                   <Cell key={index} width={widthCells[index]} center={center}>
                     <Data>{data}</Data>
                   </Cell>
                 );
-              else if (data && button) {
+              else if (button) {
                 return (
                   <Cell key={index} width={widthCells[index]} center={center}>
-                    <Button>{data}</Button>
+                    <Button>{button}</Button>
+                  </Cell>
+                );
+              } else if (colorSpaceship) {
+                return (
+                  <Cell key={index} width={widthCells[index]} center={center}>
+                    <Triangle color={colorSpaceship} />
                   </Cell>
                 );
               }
