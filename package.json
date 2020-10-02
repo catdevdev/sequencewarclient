@@ -3,14 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next -p 8080",
+    "dev": "next -p 8000",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "joystick-react": "^1.0.1",
     "next": "9.5.3",
+    "nipplejs": "^0.8.7",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-joystick": "^1.0.3",
+    "react-joystick-component": "^1.4.0",
+    "react-nipple": "^1.0.2",
     "styled-components": "^5.2.0"
   }
 }

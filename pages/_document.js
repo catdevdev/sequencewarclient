@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -9,6 +9,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
+        <script src="./dist/nipplejs.min.js"></script>
         <Head></Head>
         <body>
           <Main />

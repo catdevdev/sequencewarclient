@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const StyledBackground = styled.div`
   width: 100%;
@@ -9,12 +9,13 @@ const StyledBackground = styled.div`
   left: 0;
   z-index: -2;
 
-  background: url("${({ url }) => url}") no-repeat center;
+  background: url('${({ url }) => url}') ${({ color }) => color} no-repeat
+    center;
   background-size: cover;
 `;
 
-const Background = ({ children, style, url }) => {
-  return <StyledBackground url={url}></StyledBackground>;
+const Background = ({ children, style, url, color }) => {
+  return <StyledBackground url={url} color={color}></StyledBackground>;
 };
 
 export default Background;
