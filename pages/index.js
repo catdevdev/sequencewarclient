@@ -15,12 +15,14 @@ import Background from '../components/UI/Background';
 import VerticalLine from '../components/UI/VerticalLine';
 
 import ModalInput from '../components/UI/ModalInput';
+import Backdrop from '../components/UI/Backdrop';
 
 export default function Home() {
   return (
     <>
       <Background url={'images/background-mainmenu.jpg'}></Background>
       <ModalInput></ModalInput>
+      <Backdrop></Backdrop>
       <Head>
         <title>Game Lobby</title>
         <link rel="icon" href="/favicon.ico" />
