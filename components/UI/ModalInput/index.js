@@ -51,13 +51,13 @@ const Submit = styled.button`
   font-size: 18px;
 `;
 
-const ModalInput = () => {
+const ModalInput = ({ message, submitText }) => {
   return (
     <Window>
       <Container>
-        <Message>Enter your nickname</Message>
+        <Message>{message}</Message>
         <Input />
-        <Submit>Enter</Submit>
+        <Submit>{submitText}</Submit>
       </Container>
     </Window>
   );

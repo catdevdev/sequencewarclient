@@ -21,8 +21,10 @@ export default function Home() {
   return (
     <>
       <Background url={'images/background-mainmenu.jpg'}></Background>
-      <ModalInput></ModalInput>
+
       <Backdrop></Backdrop>
+      <ModalInput message="Enter your nickname" submitText="Enter" />
+      
       <Head>
         <title>Game Lobby</title>
         <link rel="icon" href="/favicon.ico" />
