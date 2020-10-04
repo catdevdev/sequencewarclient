@@ -23,8 +23,8 @@ const StyledWindow = styled.div`
   background: rgba(0, 0, 0, 0.6);
 `;
 
-const Window = ({ children }) => {
-  return <StyledWindow>{children}</StyledWindow>;
+const Window = ({ style, children }) => {
+  return <StyledWindow style={style}>{children}</StyledWindow>;
 };
 
 export default Window;
