@@ -1,15 +1,14 @@
-// import App from 'next/app'
+import App from 'next/app';
+import GlobalStyled from '../theme/globalStyles';
+import Head from 'next/head';
+import Main from '../components/Layout/Main';
 
-import GlobalStyled from "../theme/globalStyles";
-import { Fragment } from "react";
-
-import Head from "next/head";
-
-import Main from "../components/Layout/Main";
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Fragment>
+    <>
       <Head>
         <meta
           name="viewport"
@@ -21,10 +20,12 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <GlobalStyled />
-      <Main>
-        <Component {...pageProps} />
-      </Main>
-    </Fragment>
+      {/* <Provider store={store}> */}
+        <Main>
+          <Component {...pageProps} />
+        </Main>
+      {/* </Provider> */}
+    </>
   );
 }
 
