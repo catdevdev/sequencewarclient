@@ -7,7 +7,7 @@ import ReactNipple from 'react-nipple';
 
 import Bar from '../components/UI/Joystick/Bar';
 
-const Joystick1 = () => {
+const Joystick = () => {
   const handleEvent = (evt, data) => {
     // console.log(evt.target.box);
     console.log(data.instance.frontPosition);
@@ -61,4 +61,4 @@ const Joystick1 = () => {
   );
 };
 
-export default Joystick1;
+export default Joystick;

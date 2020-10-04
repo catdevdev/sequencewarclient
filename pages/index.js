@@ -14,11 +14,13 @@ import Online from '../components/UI/Window/Online';
 import Background from '../components/UI/Background';
 import VerticalLine from '../components/UI/VerticalLine';
 
+import ModalInput from '../components/UI/ModalInput';
 
 export default function Home() {
   return (
     <>
       <Background url={'images/background-mainmenu.jpg'}></Background>
+      <ModalInput></ModalInput>
       <Head>
         <title>Game Lobby</title>
         <link rel="icon" href="/favicon.ico" />
@@ -54,8 +56,6 @@ export default function Home() {
               }}
             >
               <Online></Online>
-
-              
             </div>
           </div>
         </Window>
