@@ -18,6 +18,14 @@ const StyledRooms = styled.div`
   /* overflow: auto; */
 `;
 
+const TableContainer = styled.div`
+  margin: 0 auto;
+  width: 80%;
+  @media (max-width: 1350px) {
+    width: 90%;
+  }
+`;
+
 const Button = styled.button`
   position: absolute;
   right: 28px;
@@ -413,13 +421,13 @@ const Rooms = ({}) => {
           ACTIVE GAMES (4)
         </p>
       </Header>
-      <Container width="80%">
+      <TableContainer>
         <Table
-          widthCells={[15, 20, 10, 45, 5]}
+          widthCells={[15, 15, 15, 45, 5]}
           dataPrimary={dataPrimary}
           rowsData={rowsData}
         />
-      </Container>
+      </TableContainer>
       <Button
         onClick={() => {
           router.push('/lobby');

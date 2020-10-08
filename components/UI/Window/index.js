@@ -21,6 +21,10 @@ const StyledWindow = styled.div`
   box-shadow: 0 0 15px 7px rgba(255, 255, 255, 0.15);
 
   background: rgba(0, 0, 0, 0.6);
+
+  @media (max-width: 800px) {
+    display: none;
+  }
 `;
 
 const Window = ({ style, children }) => {

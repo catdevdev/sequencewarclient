@@ -22,8 +22,8 @@ export default function Home() {
     <>
       <Background url={'images/background-mainmenu.jpg'}></Background>
 
-      <Backdrop></Backdrop>
-      <ModalInput message="Enter your nickname" submitText="Enter" />
+      {/* <Backdrop></Backdrop>
+      <ModalInput message="Enter your nickname" submitText="Enter" /> */}
       
       <Head>
         <title>Game Lobby</title>

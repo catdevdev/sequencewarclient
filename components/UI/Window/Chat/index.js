@@ -1,9 +1,19 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const ChatContainer = styled.div`
   height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 80%;
+  @media (max-width: 1350px) {
+    width: 90%;
+  }
+  /* height: 100%; */
+  margin: 0 auto;
 `;
 
 const ChatArea = styled.div`
@@ -41,7 +51,7 @@ const ChatInput = styled.input`
   border: 1px solid #fff;
   border-radius: 5px;
 
-  font-family: "Space Mono", sans-serif;
+  font-family: 'Space Mono', sans-serif;
   font-size: 16px;
   color: rgba(255, 255, 255, 0.9);
 
@@ -65,51 +75,42 @@ const ChatButton = styled.button`
 const Chat = () => {
   return (
     <ChatContainer>
+ 
+      <ChatArea>
+        <MessageContainer>
+          <Nickname>vladvkus{'>'}</Nickname>
+          <Message>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
+            dolorum eius nisi qui numquam dolor.
+          </Message>
+        </MessageContainer>
+        <MessageContainer>
+          <Nickname>ruslan{'>'}</Nickname>
+          <Message>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia,
+            doloremque?
+          </Message>
+        </MessageContainer>
+        <MessageContainer>
+          <Nickname>hi576{'>'}</Nickname>
+          <Message>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia,
+            doloremque?
+          </Message>
+        </MessageContainer>
+      </ChatArea>
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          width: "80%",
-          height: "100%",
-          margin: "0 auto",
+          width: '100%',
+          height: '100px',
+          display: 'flex',
+          alignItems: 'center',
         }}
       >
-        <ChatArea>
-          <MessageContainer>
-            <Nickname>vladvkus{">"}</Nickname>
-            <Message>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-              dolorum eius nisi qui numquam dolor.
-            </Message>
-          </MessageContainer>
-          <MessageContainer>
-            <Nickname>ruslan{">"}</Nickname>
-            <Message>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia,
-              doloremque?
-            </Message>
-          </MessageContainer>
-          <MessageContainer>
-            <Nickname>hi576{">"}</Nickname>
-            <Message>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia,
-              doloremque?
-            </Message>
-          </MessageContainer>
-        </ChatArea>
-        <div
-          style={{
-            width: "100%",
-            height: "100px",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <ChatInput></ChatInput>
-          <ChatButton>ENTER</ChatButton>
-        </div>
+        <ChatInput></ChatInput>
+        <ChatButton>ENTER</ChatButton>
       </div>
+    
     </ChatContainer>
   );
 };

@@ -5,6 +5,17 @@ const StyledContainer = styled.div`
 
   width: ${({ width }) => (width ? width : '1300px')};
 
+  width: 80%;
+  @media (min-width: 1350px) {
+    width: 1200px;
+  }
+  @media (max-width: 1350px) {
+    width: 90%;
+  }
+  @media (max-width: 900px) {
+    width: 95%;
+  }
+
   margin: 0 auto;
 `;
 

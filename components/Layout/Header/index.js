@@ -9,6 +9,14 @@ const StyledHeader = styled.header`
   align-items: flex-end;
 `;
 
+const CurrentRoute = styled.div`
+  font-size: 22px;
+  font-weight: 400;
+  @media (max-width: 800px) {
+    display: none;
+  }
+`;
+
 const LeftContainer = styled.div``;
 
 const Header = ({ currentRoute }) => {
@@ -20,7 +28,7 @@ const Header = ({ currentRoute }) => {
           <h1 style={{ fontSize: '16px', fontWeight: '400' }}>Sequilize War</h1>
           <p style={{ fontSize: '16px', fontWeight: '700' }}>LIVE</p>
         </LeftContainer>
-        <p style={{ fontSize: '22px', fontWeight: '400' }}>{currentRoute}</p>
+        <CurrentRoute>{currentRoute}</CurrentRoute>
       </StyledHeader>
     </Container>
   );

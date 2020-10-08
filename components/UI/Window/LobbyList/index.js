@@ -130,7 +130,7 @@ const Rooms = ({}) => {
           NEW GAME
         </p>
       </Header>
-      <Container width="80%" style={{}}>
+      <Container width="100%" style={{}}>
         <Table
           lineEveryRow
           widthCells={[20, 20, 20, 35]}
