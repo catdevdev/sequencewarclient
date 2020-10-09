@@ -3,6 +3,7 @@ import Head from 'next/head';
 import styled from 'styled-components';
 
 import Container from '../components/Layout/Container';
+import MobileContainer from '../components/Layout/MobileContainer';
 
 import Header from '../components/Layout/Header';
 
@@ -10,6 +11,10 @@ import Window from '../components/UI/Window';
 import Rooms from '../components/UI/Window/Rooms';
 import Chat from '../components/UI/Window/Chat';
 import Online from '../components/UI/Window/Online';
+
+import MobileWindow from '../components/UI/Mobile/Window';
+import MobileHeader from '../components/UI/Mobile/Window/Header';
+import MobileRooms from '../components/UI/Mobile/Window/Rooms';
 
 import Background from '../components/UI/Background';
 import VerticalLine from '../components/UI/VerticalLine';
@@ -24,7 +29,7 @@ export default function Home() {
 
       {/* <Backdrop></Backdrop>
       <ModalInput message="Enter your nickname" submitText="Enter" /> */}
-      
+
       <Head>
         <title>Game Lobby</title>
         <link rel="icon" href="/favicon.ico" />
@@ -64,6 +69,12 @@ export default function Home() {
           </div>
         </Window>
       </Container>
+      <MobileContainer>
+        <MobileWindow>
+          
+          <MobileRooms />
+        </MobileWindow>
+      </MobileContainer>
     </>
   );
 }
