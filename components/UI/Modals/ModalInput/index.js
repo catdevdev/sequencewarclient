@@ -1,4 +1,8 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import Backdrop from '../../Backdrop';
+import { HuePicker } from 'react-color';
+import Hue from '../../Hue';
 
 const Window = styled.div`
   position: fixed;
@@ -9,7 +13,6 @@ const Window = styled.div`
   z-index: 100;
 
   width: 400px;
-  height: 220px;
 
   border: solid 3px #fff;
   border-radius: 5px;
@@ -36,7 +39,8 @@ const Input = styled.input`
   border-radius: 8px;
   background: transparent;
   padding-left: 20px;
-  color: #42ff00;
+
+  color: ${({ color }) => color};
   font-size: 16px;
 `;
 
@@ -51,15 +55,29 @@ const Submit = styled.button`
   font-size: 18px;
 `;
 
-const ModalInput = ({ message, submitText }) => {
+const ModalInput = ({ message, submitText, color }) => {
+  const [textColor, setTextColor] = useState('#fff');
   return (
-    <Window>
-      <Container>
-        <Message>{message}</Message>
-        <Input />
-        <Submit>{submitText}</Submit>
-      </Container>
-    </Window>
+    <>
+      <Backdrop />
+
+      <Window>
+        <Container>
+          <Message>{message}</Message>
+          <Input color={textColor.hex} />
+          {color && (
+            <Hue
+              onChange={(color) => {
+                setTextColor(color);
+              }}
+              style={{ marginTop: 20 }}
+              color={textColor}
+            />
+          )}
+          <Submit>{submitText}</Submit>
+        </Container>
+      </Window>
+    </>
   );
 };
 

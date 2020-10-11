@@ -1,34 +1,40 @@
+
+
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import styled from 'styled-components';
 
 import Container from '../components/Layout/Container';
-import MobileContainer from '../components/Layout/MobileContainer';
 
 import Header from '../components/Layout/Header';
 
 import Window from '../components/UI/Window';
+import WindowHeader from '../components/UI/Window/Header';
 import Rooms from '../components/UI/Window/Rooms';
 import Chat from '../components/UI/Window/Chat';
 import Online from '../components/UI/Window/Online';
+import Button from '../components/UI/Button';
 
 import MobileWindow from '../components/UI/Mobile/Window';
-import MobileHeader from '../components/UI/Mobile/Window/Header';
 import MobileRooms from '../components/UI/Mobile/Window/Rooms';
+import MobileChat from '../components/UI/Mobile/Chat';
 
 import Background from '../components/UI/Background';
 import VerticalLine from '../components/UI/VerticalLine';
 
-import ModalInput from '../components/UI/ModalInput';
+// import ModalInput from '../components/UI/ModalInput';
 import Backdrop from '../components/UI/Backdrop';
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <>
       <Background url={'images/background-mainmenu.jpg'}></Background>
 
-      {/* <Backdrop></Backdrop>
-      <ModalInput message="Enter your nickname" submitText="Enter" /> */}
+      {/* <ModalInput message="Enter your nickname" submitText="Enter" /> ÷ */}
+      {/* <MobileChat></MobileChat> */}
 
       <Head>
         <title>Game Lobby</title>
@@ -68,13 +74,25 @@ export default function Home() {
             </div>
           </div>
         </Window>
-      </Container>
-      <MobileContainer>
         <MobileWindow>
-          
+          <WindowHeader>
+            <p style={{ fontSize: 16, fontWeight: 700, letterSpacing: 1 }}>
+              ACTIVE GAMES (4)
+            </p>
+          </WindowHeader>
+          <div>
+            <Button
+              onClick={() => {
+                router.push('/lobby');
+              }}
+              style={{ width: '80%', margin: '30px auto' }}
+            >
+              Create new game
+            </Button>
+          </div>
           <MobileRooms />
         </MobileWindow>
-      </MobileContainer>
+      </Container>
     </>
   );
 }

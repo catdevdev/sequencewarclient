@@ -5,6 +5,7 @@ export const HIDE_ALERT = 'APP/HIDE_ALERT';
 export const ON_USERS = 'USERS/ON_USERS';
 // USER
 export const EMIT_USER = 'USER/EMIT_USER';
+export const ON_USER = 'USER/ON_USER';
 // ROOMS
 export const ON_ROOMS = 'ROOMS/ON_ROOMS';
 // ROOM

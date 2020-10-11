@@ -2,9 +2,12 @@ import App from 'next/app';
 import GlobalStyled from '../theme/globalStyles';
 import Head from 'next/head';
 import Main from '../components/Layout/Main';
+import UICalls from '../components/UI/UICalls';
 
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
+
+import socketIOClient from "socket.io-client";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -19,11 +22,13 @@ function MyApp({ Component, pageProps }) {
           rel="stylesheet"
         />
       </Head>
+
       <GlobalStyled />
+      <UICalls></UICalls>
       {/* <Provider store={store}> */}
-        <Main>
-          <Component {...pageProps} />
-        </Main>
+      <Main>
+        <Component {...pageProps} />
+      </Main>
       {/* </Provider> */}
     </>
   );

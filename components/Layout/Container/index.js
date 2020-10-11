@@ -15,9 +15,17 @@ const StyledContainer = styled.div`
   @media (max-width: 900px) {
     width: 95%;
   }
+  @media (max-width: 800px) {
+    width: 485px;
+  }
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 
   margin: 0 auto;
 `;
+
+
 
 const Container = ({ children, width, style }) => {
   return (
