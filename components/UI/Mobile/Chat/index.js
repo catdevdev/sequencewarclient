@@ -1,43 +1,46 @@
+/* imports */
+import { useState } from 'react';
 import styled from 'styled-components';
-
+/* component */
 import Backdrop from '../../Backdrop';
 import Button from '../../Button';
+/* redux */
+import { useDispatch, useSelector } from 'react-redux';
+import { hideModalMobileChat } from '../../../../redux/actions/Chat';
+/* socket */
+import { socket } from '../../../Socket';
 
 const ChatContainer = styled.div`
   @media (min-width: 801px) {
     display: none;
   }
 `;
-
 const ChatWrapper = styled.div`
   padding: 0 24px;
   @media (min-width: 700px) {
     padding: 0 100px;
   }
 `;
-
 const Cross = styled.img`
   position: fixed;
   top: 24px;
   right: 24px;
+  cursor: pointer;
 `;
-
 const MessagesWindow = styled.div`
   margin-top: 70px;
   width: 100%;
   height: 55vh;
 
   overflow-x: hidden; /* Hide horizontal scrollbar */
-  overflow-y: scroll; /* Add vertical scrollbar */
+  overflow-y: auto; /* Add vertical scrollbar */
 `;
-
 const MessageContainer = styled.div``;
-
 const Sender = styled.em`
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 1px;
-  color: #00fff0;
+  color: ${({ textColor }) => textColor};
   line-height: 27px;
 `;
 const Message = styled.p`
@@ -47,7 +50,6 @@ const Message = styled.p`
   line-height: 27px;
   margin-bottom: 15px;
 `;
-
 const Input = styled.input`
   width: 100%;
   height: 40px;
@@ -61,61 +63,51 @@ const Input = styled.input`
 `;
 
 const Chat = () => {
+  const dispatch = useDispatch();
+  const messages = useSelector((state) => state.chat.messages);
+  const [message, setMessage] = useState('');
+
+  const sendMessageHandler = () => {
+    socket.emit('message', message);
+    setMessage('');
+  };
+
   return (
     <ChatContainer>
       <Backdrop>
         <ChatWrapper>
-          <Cross src="/images/cancel.svg" alt="cross-icon" />
+          <Cross
+            onClick={() => {
+              dispatch(hideModalMobileChat());
+            }}
+            src="/images/cancel.svg"
+            alt="cross-icon"
+          />
           <MessagesWindow>
             <MessageContainer>
-              <Message>
-                <Sender>vladvkus{'>'}</Sender> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. earum.
-              </Message>
-              <Message>
-                <Sender>kitty{'>'}</Sender> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. earum.
-              </Message>
-              <Message>
-                <Sender>kitty{'>'}</Sender> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. earum.
-              </Message>
-              <Message>
-                <Sender>kitty{'>'}</Sender> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. earum.
-              </Message>
-              <Message>
-                <Sender>kitty{'>'}</Sender> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. earum.
-              </Message>
-              <Message>
-                <Sender>kitty{'>'}</Sender> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. earum.
-              </Message>
-              <Message>
-                <Sender>kitty{'>'}</Sender> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. earum.
-              </Message>
-              <Message>
-                <Sender>kitty{'>'}</Sender> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. earum.
-              </Message>
-              <Message>
-                <Sender>kitty{'>'}</Sender> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. earum.
-              </Message>
-              <Message>
-                <Sender>kitty{'>'}</Sender> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. earum.
-              </Message>
-              <Message>
-                <Sender>kitty{'>'}</Sender> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. earum.
-              </Message>
+              {messages.map(({ message, userName, textColor }, index) => (
+                <Message key={index}>
+                  <Sender textColor={textColor}>
+                    {userName}
+                    {'>'}
+                  </Sender>
+                  {message}
+                </Message>
+              ))}
             </MessageContainer>
           </MessagesWindow>
-          <Input />
-          <Button style={{ width: '100%', height: 40 }}>SEND</Button>
+          <Input
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+          />
+          <Button
+            onClick={sendMessageHandler}
+            style={{ width: '100%', height: 40 }}
+          >
+            SEND
+          </Button>
         </ChatWrapper>
       </Backdrop>
     </ChatContainer>

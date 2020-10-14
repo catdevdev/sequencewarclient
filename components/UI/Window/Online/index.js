@@ -40,7 +40,7 @@ const Nickname = styled.p`
 const Online = ({}) => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
-  
+
   let usersJXS;
   if (users.length) {
     usersJXS = (

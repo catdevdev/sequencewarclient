@@ -6,8 +6,6 @@ import { socket } from '../../../Socket';
 /* redux */
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, onMessages } from '../../../../redux/actions/Chat';
-import { onUser } from '../../../../redux/actions/User';
-import { onUsers } from '../../../../redux/actions/Users';
 
 const ChatContainer = styled.div`
   height: 40%;
@@ -22,26 +20,22 @@ const ChatContainer = styled.div`
   /* height: 100%; */
   margin: 0 auto;
 `;
-
 const ChatArea = styled.div`
   height: 100%;
   overflow: auto;
 `;
-
 const MessageContainer = styled.div`
   display: flex;
   justify-content: flex-start;
 
   margin: 10px 0;
 `;
-
 const Nickname = styled.p`
   font-weight: 700;
   font-size: 15px;
 
   color: ${({ textColor }) => textColor};
 `;
-
 const Message = styled.p`
   font-weight: 700;
   font-size: 15px;
@@ -49,7 +43,6 @@ const Message = styled.p`
   color: #fff;
   padding-left: 15px;
 `;
-
 const ChatInput = styled.input`
   width: 100%;
   height: 40px;
@@ -66,7 +59,6 @@ const ChatInput = styled.input`
 
   outline: none;
 `;
-
 const ChatButton = styled.button`
   width: 70px;
   height: 40px;
@@ -79,30 +71,20 @@ const ChatButton = styled.button`
   color: #fff;
 `;
 
-let newMessageArray = [];
-
 const Chat = () => {
+  const dispatch = useDispatch();
+  const messages = useSelector((state) => state.chat.messages);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
 
   const sendMessageHandler = () => {
     socket.emit('message', message);
     setMessage('');
-    console.log(1);
   };
 
   useEffect(() => {
     socket.on('message', (message) => {
-      // let newArray = [...messages];
-      // console.log(newArray);
-      // newArray.push(message);
-      // console.log(newArray);
-      // setMessages(newArray);
-      let tempArr = [...messages];
-      tempArr.push(message);
-      setMessages(tempArr);
+      dispatch(addMessage(message));
     });
-    // console.log(messages);
   }, []);
 
   return (
@@ -131,7 +113,7 @@ const Chat = () => {
           onChange={(e) => {
             setMessage(e.target.value);
           }}
-        ></ChatInput>
+        />
         <ChatButton onClick={sendMessageHandler}>ENTER</ChatButton>
       </div>
     </ChatContainer>

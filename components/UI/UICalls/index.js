@@ -1,20 +1,27 @@
 /* components */
 import ModalConfigGame from '../Modals/ModalConfigGame';
 import ModalInput from '../Modals/ModalInput';
-import MocalChat from '../Mobile/Chat';
+import ModalChat from '../Mobile/Chat';
 
 import { useEffect } from 'react';
 /* redux */
 import { useDispatch, useSelector } from 'react-redux';
 import { showModalInputUser } from '../../../redux/actions/InputName';
-import { hideModalInputUser } from '../../../redux/actions/InputName';
+import {
+  showModalMobileChat,
+  hideModalMobileChat,
+} from '../../../redux/actions/Chat';
 
 const UICalls = () => {
   const dispatch = useDispatch();
   const showModalInputUserCondition = useSelector(
     (state) => state.modalInputUser.show
   );
+  const showModalMobileChatCondition = useSelector(
+    (state) => state.chat.showMobileChat
+  );
 
+  console.log(showModalMobileChatCondition);
   console.log(showModalInputUserCondition);
 
   useEffect(() => {
@@ -35,7 +42,8 @@ const UICalls = () => {
       )}
       {/* <ModalConfigGame></ModalConfigGame> */}
 
-      {/* <MocalChat></MocalChat> */}
+      {showModalMobileChatCondition && <ModalChat></ModalChat>}
+      
     </>
   );
 };
