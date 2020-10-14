@@ -1,8 +1,16 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+/* components */
 import Backdrop from '../../Backdrop';
 import { HuePicker } from 'react-color';
 import Hue from '../../Hue';
+
+import { useState } from 'react';
+import styled from 'styled-components';
+/* redux */
+import { useDispatch, useSelector } from 'react-redux';
+import { hideModalInputUser } from '../../../../redux/actions/InputName';
+import { onUser } from '../../../../redux/actions/User';
+import { onUsers } from '../../../../redux/actions/Users';
+import { socket } from '../../../Socket';
 
 const Window = styled.div`
   position: fixed;
@@ -57,6 +65,25 @@ const Submit = styled.button`
 
 const ModalInput = ({ message, submitText, color }) => {
   const [textColor, setTextColor] = useState('#fff');
+  const [userName, setUserName] = useState('');
+
+  const dispatch = useDispatch();
+  const showModalInputUserCondition = useSelector(
+    (state) => state.modalInputUser.show
+  );
+
+  const sendDataHandler = () => {
+    socket.emit('user', { userName, textColor: textColor.hex });
+    socket.on('user', (user) => {
+      dispatch(onUser(user));
+      dispatch(hideModalInputUser());
+      console.log(user);
+    });
+    socket.on('users', (users) => {
+      console.log(users);
+      dispatch(onUsers(users));
+    });
+  };
   return (
     <>
       <Backdrop />
@@ -64,7 +91,12 @@ const ModalInput = ({ message, submitText, color }) => {
       <Window>
         <Container>
           <Message>{message}</Message>
-          <Input color={textColor.hex} />
+          <Input
+            onChange={(e) => {
+              setUserName(e.target.value);
+            }}
+            color={textColor.hex}
+          />
           {color && (
             <Hue
               onChange={(color) => {
@@ -74,7 +106,13 @@ const ModalInput = ({ message, submitText, color }) => {
               color={textColor}
             />
           )}
-          <Submit>{submitText}</Submit>
+          <Submit
+            onClick={() => {
+              sendDataHandler(name);
+            }}
+          >
+            {submitText}
+          </Submit>
         </Container>
       </Window>
     </>

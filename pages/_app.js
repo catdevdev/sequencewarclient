@@ -1,15 +1,19 @@
+import { useEffect } from 'react';
+
 import App from 'next/app';
 import GlobalStyled from '../theme/globalStyles';
 import Head from 'next/head';
 import Main from '../components/Layout/Main';
 import UICalls from '../components/UI/UICalls';
 
+import { socket } from '../components/Socket';
+
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
 
-import socketIOClient from "socket.io-client";
-
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {}, []);
+
   return (
     <>
       <Head>
@@ -24,12 +28,13 @@ function MyApp({ Component, pageProps }) {
       </Head>
 
       <GlobalStyled />
-      <UICalls></UICalls>
-      {/* <Provider store={store}> */}
-      <Main>
-        <Component {...pageProps} />
-      </Main>
-      {/* </Provider> */}
+
+      <Provider store={store}>
+        <UICalls></UICalls>
+        <Main>
+          <Component {...pageProps} />
+        </Main>
+      </Provider>
     </>
   );
 }

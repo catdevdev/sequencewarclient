@@ -1,6 +1,11 @@
 // APP
 export const SHOW_ALERT = 'APP/SHOW_ALERT';
 export const HIDE_ALERT = 'APP/HIDE_ALERT';
+export const SHOW_MODAL_INPUT_USER = 'APP/SHOW_MODAL_INPUT_USER';
+export const HIDE_MODAL_INPUT_USER = 'APP/HIDE_MODAL_INPUT_USER';
+// CHAT
+export const ADD_MESSAGE = 'CHAT/ADD_MESSAGE';
+export const ON_MESSAGES = 'CHAT/ON_MESSAGES';
 // USERS
 export const ON_USERS = 'USERS/ON_USERS';
 // USER

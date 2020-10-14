@@ -1,4 +1,4 @@
-import { EMIT_USER } from '../actiontypes';
+import { EMIT_USER, ON_USER } from '../actiontypes';
 
 const initialState = {};
 

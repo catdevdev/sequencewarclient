@@ -1,6 +1,13 @@
-import React from 'react';
-
+/* Imports */
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+/* Sockets */
+import { socket } from '../../../Socket';
+/* redux */
+import { useDispatch, useSelector } from 'react-redux';
+import { addMessage, onMessages } from '../../../../redux/actions/Chat';
+import { onUser } from '../../../../redux/actions/User';
+import { onUsers } from '../../../../redux/actions/Users';
 
 const ChatContainer = styled.div`
   height: 40%;
@@ -32,7 +39,7 @@ const Nickname = styled.p`
   font-weight: 700;
   font-size: 15px;
 
-  color: #39de00;
+  color: ${({ textColor }) => textColor};
 `;
 
 const Message = styled.p`
@@ -72,32 +79,44 @@ const ChatButton = styled.button`
   color: #fff;
 `;
 
+let newMessageArray = [];
+
 const Chat = () => {
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+
+  const sendMessageHandler = () => {
+    socket.emit('message', message);
+    setMessage('');
+    console.log(1);
+  };
+
+  useEffect(() => {
+    socket.on('message', (message) => {
+      // let newArray = [...messages];
+      // console.log(newArray);
+      // newArray.push(message);
+      // console.log(newArray);
+      // setMessages(newArray);
+      let tempArr = [...messages];
+      tempArr.push(message);
+      setMessages(tempArr);
+    });
+    // console.log(messages);
+  }, []);
+
   return (
     <ChatContainer>
- 
       <ChatArea>
-        <MessageContainer>
-          <Nickname>vladvkus{'>'}</Nickname>
-          <Message>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            dolorum eius nisi qui numquam dolor.
-          </Message>
-        </MessageContainer>
-        <MessageContainer>
-          <Nickname>ruslan{'>'}</Nickname>
-          <Message>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia,
-            doloremque?
-          </Message>
-        </MessageContainer>
-        <MessageContainer>
-          <Nickname>hi576{'>'}</Nickname>
-          <Message>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia,
-            doloremque?
-          </Message>
-        </MessageContainer>
+        {messages.map(({ message, userName, textColor }, index) => (
+          <MessageContainer key={index}>
+            <Nickname textColor={textColor}>
+              {userName}
+              {'>'}
+            </Nickname>
+            <Message>{message}</Message>
+          </MessageContainer>
+        ))}
       </ChatArea>
       <div
         style={{
@@ -107,10 +126,14 @@ const Chat = () => {
           alignItems: 'center',
         }}
       >
-        <ChatInput></ChatInput>
-        <ChatButton>ENTER</ChatButton>
+        <ChatInput
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
+        ></ChatInput>
+        <ChatButton onClick={sendMessageHandler}>ENTER</ChatButton>
       </div>
-    
     </ChatContainer>
   );
 };
