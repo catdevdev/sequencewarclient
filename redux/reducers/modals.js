@@ -2,7 +2,7 @@ import {
   SHOW_MODAL_INPUT_USER,
   HIDE_MODAL_INPUT_USER,
   SHOW_MODAL_MOBILE_CHAT,
-  SHOW_MODAL_MOBILE_CHAT,
+  HIDE_MODAL_MOBILE_CHAT,
 } from '../actiontypes';
 
 const initialState = {
