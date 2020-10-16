@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Container from '../../../Layout/Container';
+// import Container from '../../../Layout/Container';
 import Header from '../Header';
 import Table from '../Table';
 
@@ -29,6 +29,16 @@ const Button = styled.button`
   font-size: 16px;
 `;
 
+const LobbyListContainer = styled.div`
+  margin: 0 auto;
+  width: 80%;
+  @media (max-width: 1350px) {
+    width: 90%;
+  }
+`;
+
+const SettingsSpaceshipContainer = styled.div``;
+
 const Rooms = ({ dataPrimary, rowsData }) => {
   const router = useRouter();
 
@@ -46,14 +56,14 @@ const Rooms = ({ dataPrimary, rowsData }) => {
           NEW GAME
         </p>
       </Header>
-      <Container width="100%" style={{}}>
+      <LobbyListContainer>        
         <Table
           lineEveryRow
           widthCells={[20, 20, 20, 35]}
           dataPrimary={dataPrimary}
           rowsData={rowsData}
         />
-      </Container>
+      </LobbyListContainer>
       <Button
         onClick={() => {
           router.push('/');

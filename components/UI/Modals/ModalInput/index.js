@@ -1,13 +1,12 @@
-/* components */
-import Backdrop from '../../Backdrop';
-import { HuePicker } from 'react-color';
-import Hue from '../../Hue';
-
+/* imports */
 import { useState } from 'react';
 import styled from 'styled-components';
+/* components */
+import Backdrop from '../../Backdrop';
+import Hue from '../../Hue';
 /* redux */
 import { useDispatch, useSelector } from 'react-redux';
-import { hideModalInputUser } from '../../../../redux/actions/InputName';
+import { hideModalInputUser } from '../../../../redux/actions/Modals';
 import { onUser } from '../../../../redux/actions/User';
 import { onUsers } from '../../../../redux/actions/Users';
 import { socket } from '../../../Socket';

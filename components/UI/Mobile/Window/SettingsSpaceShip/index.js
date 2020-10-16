@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { HuePicker } from 'react-color';
+import Hue from '../../../Hue';
 
 const SettingsSpaceShipContainer = styled.div`
   width: 90%;
   margin: 8px auto 0;
-
-  border: 2px solid #ffffff;
+  ${({ pcVersion }) => !pcVersion && 'border: 2px solid #ffffff'};
   border-radius: 10px;
 `;
 
@@ -63,7 +63,7 @@ const Triangle = styled.div`
   border-bottom: 35px solid transparent;
 `;
 
-const SettingsSpaceShip = () => {
+const SettingsSpaceShip = ({ pcVersion }) => {
   const [color, setColor] = useState({ hex: '#fff' });
 
   return (
@@ -75,11 +75,12 @@ const SettingsSpaceShip = () => {
           color: '#FFC700',
           textAlign: 'center',
           letterSpacing: 1,
+          marginTop: pcVersion && 30,
         }}
       >
         Your spaceship:
       </p>
-      <SettingsSpaceShipContainer>
+      <SettingsSpaceShipContainer pcVersion={pcVersion}>
         <p
           style={{
             margin: '8px 0 14px',
@@ -92,7 +93,7 @@ const SettingsSpaceShip = () => {
         >
           settings
         </p>
-        <HuePicker
+        <Hue
           width="100%"
           height="30px"
           pointer={PointerColorPicker}
@@ -100,7 +101,8 @@ const SettingsSpaceShip = () => {
           onChange={(color) => {
             setColor(color);
           }}
-        ></HuePicker>
+          style={{ marginBottom: 15 }}
+        ></Hue>
         <ContainerConfig>
           <ContainerData>
             <Key>Color</Key>

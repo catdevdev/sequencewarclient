@@ -1,8 +1,6 @@
 import {
   ADD_MESSAGE,
   ON_MESSAGES,
-  SHOW_MODAL_MOBILE_CHAT,
-  HIDE_MODAL_MOBILE_CHAT,
 } from '../actiontypes';
 
 const initialState = {
@@ -16,10 +14,7 @@ export const chatReducer = (state = initialState, action) => {
       return { ...state, messages: [...state.messages, action.payload] };
     case ON_MESSAGES:
       return action.payload;
-    case SHOW_MODAL_MOBILE_CHAT:
-      return { ...state, showMobileChat: true };
-    case HIDE_MODAL_MOBILE_CHAT:
-      return { ...state, showMobileChat: false };
+
     default:
       return state;
   }

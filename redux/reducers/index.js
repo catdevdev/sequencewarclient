@@ -5,8 +5,8 @@ import { roomReducer } from './room';
 import { roomsReducer } from './rooms';
 import { userReducer } from './user';
 import { usersReducer } from './users';
-import { modalInputUserReducer } from './modalInputUser';
 import { chatReducer } from './chat';
+import { modalsReducer } from './modals';
 
 export const rootReducer = combineReducers({
   // app: appReducer,
@@ -15,5 +15,5 @@ export const rootReducer = combineReducers({
   user: userReducer,
   users: usersReducer,
   chat: chatReducer,
-  modalInputUser: modalInputUserReducer,
+  modals: modalsReducer,
 });

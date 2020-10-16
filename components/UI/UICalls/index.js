@@ -1,9 +1,10 @@
+/* imports */
+import { useEffect } from 'react';
 /* components */
 import ModalConfigGame from '../Modals/ModalConfigGame';
 import ModalInput from '../Modals/ModalInput';
 import ModalChat from '../Mobile/Chat';
-
-import { useEffect } from 'react';
+import ModalSettingsSpaceShip from '../Modals/ModalSettingsSpaceShip';
 /* redux */
 import { useDispatch, useSelector } from 'react-redux';
 import { showModalInputUser } from '../../../redux/actions/InputName';
@@ -33,17 +34,18 @@ const UICalls = () => {
 
   return (
     <>
-      {showModalInputUserCondition && (
+      {/* {showModalInputUserCondition && (
         <ModalInput
           message="Enter your nickname"
           submitText="ENTER"
           color="green"
         />
-      )}
+      )} */}
       {/* <ModalConfigGame></ModalConfigGame> */}
 
       {showModalMobileChatCondition && <ModalChat></ModalChat>}
-      
+
+      <ModalSettingsSpaceShip />
     </>
   );
 };

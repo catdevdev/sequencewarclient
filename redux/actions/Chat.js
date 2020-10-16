@@ -1,8 +1,6 @@
 import {
   ADD_MESSAGE,
   ON_MESSAGES,
-  SHOW_MODAL_MOBILE_CHAT,
-  HIDE_MODAL_MOBILE_CHAT,
 } from '../actiontypes';
 
 export function addMessage(message) {
@@ -19,14 +17,3 @@ export function onMessages(messages) {
   };
 }
 
-export function showModalMobileChat() {
-  return {
-    type: SHOW_MODAL_MOBILE_CHAT,
-  };
-}
-
-export function hideModalMobileChat() {
-  return {
-    type: HIDE_MODAL_MOBILE_CHAT,
-  };
-}
