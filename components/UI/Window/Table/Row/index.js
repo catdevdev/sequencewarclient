@@ -28,20 +28,22 @@ const Data = styled.div`
 `;
 
 const Button = styled.button`
-  display: block;
+  display: inline-block;
 
   border: none;
   outline: none;
 
   border-radius: 100px;
 
-  width: 100%;
+  width: 80px;
   height: 16px;
   background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  text-transform: uppercase;
 
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 6px;
+  letter-spacing: 4px;
   color: #fff;
 `;
 
@@ -74,7 +76,7 @@ const Row = ({ lineEveryRow, primary, dataPrimary, widthCells, rowData }) => {
         <>
           <RowContainer lineEveryRow={lineEveryRow}>
             {rowData.map(({ data, button, colorSpaceship, center }, index) => {
-              if (data)
+              if (data && !button)
                 return (
                   <Cell key={index} width={widthCells[index]} center={center}>
                     <Data>{data}</Data>
@@ -83,7 +85,7 @@ const Row = ({ lineEveryRow, primary, dataPrimary, widthCells, rowData }) => {
               else if (button) {
                 return (
                   <Cell key={index} width={widthCells[index]} center={center}>
-                    <Button>{button}</Button>
+                    <Button>{data}</Button>
                   </Cell>
                 );
               } else if (colorSpaceship) {

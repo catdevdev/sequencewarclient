@@ -5,7 +5,7 @@ import MarginBlock from '../MarginBlock';
 import styled from 'styled-components';
 /* redux */
 import { useDispatch, useSelector } from 'react-redux';
-import { showModalMobileChat } from '../../../redux/actions/Chat';
+import { showModalMobileChat } from '../../../redux/actions/Modals';
 const StyledHeader = styled.header`
   width: 100%;
   display: flex;

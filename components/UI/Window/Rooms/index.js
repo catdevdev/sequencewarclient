@@ -1,12 +1,23 @@
+/* imports */
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
+/* components */
 import Container from '../../../Layout/Container';
-
 import Header from '../Header';
 import Table from '../Table';
-
 import MarginBlock from '../../../Layout/MarginBlock';
-
-import { useRouter } from 'next/router';
+/* redux */
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  showModalSettingsSpaceShip,
+  hideModalSettingsSpaceShip,
+} from '../../../../redux/actions/Modals';
+import {
+  setYouIsCreatorRoom,
+  writeRoomId,
+} from '../../../../redux/actions/Room';
+/* socketio */
+import { socket } from '../../../Socket';
 
 const StyledRooms = styled.div`
   position: relative;
@@ -17,7 +28,6 @@ const StyledRooms = styled.div`
 
   /* overflow: auto; */
 `;
-
 const TableContainer = styled.div`
   margin: 0 auto;
   width: 80%;
@@ -25,7 +35,6 @@ const TableContainer = styled.div`
     width: 90%;
   }
 `;
-
 const Button = styled.button`
   position: absolute;
   right: 28px;
@@ -41,7 +50,6 @@ const Button = styled.button`
   text-transform: uppercase;
   font-size: 16px;
 `;
-
 const Rooms = ({}) => {
   const dataPrimary = [
     {
@@ -103,309 +111,10 @@ const Rooms = ({}) => {
         center: true,
       },
     ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
   ];
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
   return (
     <StyledRooms>
@@ -430,7 +139,14 @@ const Rooms = ({}) => {
       </TableContainer>
       <Button
         onClick={() => {
-          router.push('/lobby');
+          socket.emit('createRoom');
+          socket.on('createdRoom', (id) => {
+            dispatch(writeRoomId(id));
+            dispatch(setYouIsCreatorRoom());
+            
+            console.log(id);
+            router.push('/lobby');
+          });
         }}
       >
         Create new game

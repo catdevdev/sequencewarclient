@@ -1,11 +1,19 @@
+/* imports */
 import styled from 'styled-components';
-// import Container from '../../../Layout/Container';
+import { useRouter } from 'next/router';
+/* redux */
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  showModalSettingsSpaceShip,
+  showModalSettingsRoom,
+} from '../../../../redux/actions/Modals';
+import { addMessage } from '../../../../redux/actions/Chat';
+/* components */
 import Header from '../Header';
 import Table from '../Table';
-
-import { useRouter } from 'next/router';
-
 import MarginBlock from '../../../Layout/MarginBlock';
+/* socketio */
+import { socket } from '../../../Socket';
 
 const StyledRooms = styled.div`
   position: relative;
@@ -14,7 +22,6 @@ const StyledRooms = styled.div`
   height: 60%;
   border-bottom: 1px solid #fff;
 `;
-
 const Button = styled.button`
   position: absolute;
 
@@ -28,7 +35,6 @@ const Button = styled.button`
   text-transform: uppercase;
   font-size: 16px;
 `;
-
 const LobbyListContainer = styled.div`
   margin: 0 auto;
   width: 80%;
@@ -36,12 +42,17 @@ const LobbyListContainer = styled.div`
     width: 90%;
   }
 `;
-
 const SettingsSpaceshipContainer = styled.div``;
 
 const Rooms = ({ dataPrimary, rowsData }) => {
+  const dispatch = useDispatch();
   const router = useRouter();
 
+  const configs = useSelector((state) => state.room.roomConfig);
+  const youIsCreatorRoomCondition = useSelector(
+    (state) => state.room.youIsCreatorRoom
+  );
+  console.log(configs);
   return (
     <StyledRooms>
       <Header>
@@ -56,7 +67,7 @@ const Rooms = ({ dataPrimary, rowsData }) => {
           NEW GAME
         </p>
       </Header>
-      <LobbyListContainer>        
+      <LobbyListContainer>
         <Table
           lineEveryRow
           widthCells={[20, 20, 20, 35]}
@@ -76,17 +87,62 @@ const Rooms = ({ dataPrimary, rowsData }) => {
       >
         Leave
       </Button>
-      <Button
-        onClick={() => {
-          router.push('/lobby');
-        }}
+      <div
         style={{
+          position: 'absolute',
           right: '28px',
           bottom: '22px',
         }}
       >
-        Create new game
-      </Button>
+        {youIsCreatorRoomCondition ? (
+          <Button
+            onClick={() => {
+              dispatch(showModalSettingsRoom());
+            }}
+            style={{
+              position: 'static',
+              marginRight: 12,
+            }}
+          >
+            Room Configs
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              dispatch(showModalSettingsSpaceShip());
+            }}
+            style={{
+              position: 'static',
+              marginRight: 12,
+            }}
+          >
+            Setting Spaceship
+          </Button>
+        )}
+
+        <Button
+          onClick={() => {
+            if (configs) {
+              socket.emit('activateRoom', configs);
+              router.push('/game');
+            } else {
+              dispatch(
+                addMessage({
+                  userName: 'Room',
+                  userColor: 'red',
+                  message: 'Please, config room',
+                  messageColor: 'red',
+                })
+              );
+            }
+          }}
+          style={{
+            position: 'static',
+          }}
+        >
+          Start game
+        </Button>
+      </div>
     </StyledRooms>
   );
 };

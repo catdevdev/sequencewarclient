@@ -11,10 +11,8 @@ const InputContainer = styled.input`
   font-size: 16px;
 `;
 
-
-
-const Input = ({ style }) => {
-  return <InputContainer style={style} />;
+const Input = ({ style, onChange }) => {
+  return <InputContainer onChange={onChange} style={style} />;
 };
 
 export default Input;

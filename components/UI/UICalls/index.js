@@ -7,19 +7,26 @@ import ModalChat from '../Mobile/Chat';
 import ModalSettingsSpaceShip from '../Modals/ModalSettingsSpaceShip';
 /* redux */
 import { useDispatch, useSelector } from 'react-redux';
-import { showModalInputUser } from '../../../redux/actions/InputName';
 import {
+  showModalInputUser,
   showModalMobileChat,
   hideModalMobileChat,
-} from '../../../redux/actions/Chat';
+} from '../../../redux/actions/Modals';
+
 
 const UICalls = () => {
   const dispatch = useDispatch();
   const showModalInputUserCondition = useSelector(
-    (state) => state.modalInputUser.show
+    (state) => state.modals.showInputUser
   );
   const showModalMobileChatCondition = useSelector(
-    (state) => state.chat.showMobileChat
+    (state) => state.modals.showMobileChat
+  );
+  const showModalSettingsSpaceShipCondition = useSelector(
+    (state) => state.modals.showSettingsSpaceship
+  );
+  const showModalSettingsRoomCondition = useSelector(
+    (state) => state.modals.showSettingsRoom
   );
 
   console.log(showModalMobileChatCondition);
@@ -34,18 +41,18 @@ const UICalls = () => {
 
   return (
     <>
-      {/* {showModalInputUserCondition && (
+      {showModalInputUserCondition && (
         <ModalInput
           message="Enter your nickname"
           submitText="ENTER"
           color="green"
         />
-      )} */}
-      {/* <ModalConfigGame></ModalConfigGame> */}
+      )}
+      {showModalSettingsRoomCondition && <ModalConfigGame />}
 
-      {showModalMobileChatCondition && <ModalChat></ModalChat>}
+      {showModalMobileChatCondition && <ModalChat />}
 
-      <ModalSettingsSpaceShip />
+      {showModalSettingsSpaceShipCondition && <ModalSettingsSpaceShip />}
     </>
   );
 };

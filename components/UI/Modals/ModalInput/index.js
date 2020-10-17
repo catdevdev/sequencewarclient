@@ -26,19 +26,16 @@ const Window = styled.div`
   box-shadow: 0 0 15px 7px rgba(255, 255, 255, 0.15);
   background: rgba(0, 0, 0, 0.6);
 `;
-
 const Container = styled.div`
   width: 70%;
   margin: 0 auto;
 `;
-
 const Message = styled.p`
   margin-top: 20px;
   font-size: 16px;
   text-align: center;
   font-weight: 700;
 `;
-
 const Input = styled.input`
   width: 100%;
   height: 45px;
@@ -50,7 +47,6 @@ const Input = styled.input`
   color: ${({ color }) => color};
   font-size: 16px;
 `;
-
 const Submit = styled.button`
   display: block;
   margin: 20px auto;
@@ -68,11 +64,13 @@ const ModalInput = ({ message, submitText, color }) => {
 
   const dispatch = useDispatch();
   const showModalInputUserCondition = useSelector(
-    (state) => state.modalInputUser.show
+    (state) => state.modals.showInputUser
   );
 
+  console.log(useSelector((state) => state));
+
   const sendDataHandler = () => {
-    socket.emit('user', { userName, textColor: textColor.hex });
+    socket.emit('user', { userName, userColor: textColor.hex });
     socket.on('user', (user) => {
       dispatch(onUser(user));
       dispatch(hideModalInputUser());

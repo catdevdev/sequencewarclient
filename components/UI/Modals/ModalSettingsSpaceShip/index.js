@@ -1,6 +1,9 @@
 /* imports */
 import { useState } from 'react';
 import styled from 'styled-components';
+/* redux */
+import { useDispatch, useSelector } from 'react-redux';
+import { hideModalSettingsSpaceShip } from '../../../../redux/actions/Modals';
 /* components */
 import Backdrop from '../../Backdrop';
 import Button from '../../Button';
@@ -25,12 +28,20 @@ const Window = styled.div`
 `;
 
 const ModalSettingsSpaceShip = () => {
+  const dispatch = useDispatch();
   return (
     <>
       <Backdrop />
       <Window>
         <SettingsSpaceShip pcVersion />
-        <Button style={{ width: '50%', margin: '30px auto' }}>enter</Button>
+        <Button
+          onClick={() => {
+            dispatch(hideModalSettingsSpaceShip());
+          }}
+          style={{ width: '50%', margin: '30px auto' }}
+        >
+          Enter
+        </Button>
       </Window>
     </>
   );

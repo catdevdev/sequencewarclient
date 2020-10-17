@@ -6,7 +6,7 @@ import Backdrop from '../../Backdrop';
 import Button from '../../Button';
 /* redux */
 import { useDispatch, useSelector } from 'react-redux';
-import { hideModalMobileChat } from '../../../../redux/actions/Chat';
+import { hideModalMobileChat } from '../../../../redux/actions/Modals';
 /* socket */
 import { socket } from '../../../Socket';
 
@@ -40,7 +40,7 @@ const Sender = styled.em`
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 1px;
-  color: ${({ textColor }) => textColor};
+  color: ${({ userColor }) => userColor};
   line-height: 27px;
 `;
 const Message = styled.p`
@@ -49,6 +49,7 @@ const Message = styled.p`
   font-size: 18px;
   line-height: 27px;
   margin-bottom: 15px;
+  color: ${({ messageColor }) => messageColor};
 `;
 const Input = styled.input`
   width: 100%;
@@ -85,15 +86,17 @@ const Chat = () => {
           />
           <MessagesWindow>
             <MessageContainer>
-              {messages.map(({ message, userName, textColor }, index) => (
-                <Message key={index}>
-                  <Sender textColor={textColor}>
-                    {userName}
-                    {'>'}
-                  </Sender>
-                  {message}
-                </Message>
-              ))}
+              {messages.map(
+                ({ message, userName, userColor, messageColor }, index) => (
+                  <Message messageColor={messageColor} key={index}>
+                    <Sender userColor={userColor}>
+                      {userName}
+                      {'>'}
+                    </Sender>
+                    {message}
+                  </Message>
+                )
+              )}
             </MessageContainer>
           </MessagesWindow>
           <Input

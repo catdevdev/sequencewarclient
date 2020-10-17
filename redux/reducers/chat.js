@@ -5,7 +5,6 @@ import {
 
 const initialState = {
   messages: [],
-  showMobileChat: false,
 };
 
 export const chatReducer = (state = initialState, action) => {

@@ -1,7 +1,14 @@
+/* imports */
+import { useState } from 'react';
 import styled from 'styled-components';
+/* components */
 import Backdrop from '../../Backdrop';
 import Button from '../../Button';
 import Input from '../../Input';
+/* redux */
+import { useDispatch, useSelector } from 'react-redux';
+import { hideModalSettingsRoom } from '../../../../redux/actions/Modals';
+import { writeRoomConfig } from '../../../../redux/actions/Room';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -16,7 +23,6 @@ const Container = styled.div`
     width: 40%;
   }
 `;
-
 const Heading = styled.h1`
   font-size: 24px;
   font-weight: 700;
@@ -25,7 +31,6 @@ const Heading = styled.h1`
   text-transform: uppercase;
   margin-top: 74px;
 `;
-
 const Text = styled.p`
   font-weight: 700;
   font-size: 14px;
@@ -36,6 +41,12 @@ const Text = styled.p`
 `;
 
 const ModalConfigGame = () => {
+  const dispatch = useDispatch();
+
+  const roomId = useSelector((state) => state.room.roomId);
+
+  const [message, setMessage] = useState('');
+
   return (
     <>
       <Backdrop>
@@ -43,7 +54,12 @@ const ModalConfigGame = () => {
           <Heading>configs</Heading>
           <div style={{ marginTop: 50 }}>
             <Text>MESSAGE (DESCRIPTION OF ROOM)</Text>
-            <Input style={{ margin: '20px auto' }} />
+            <Input
+              onChange={(e) => {
+                setMessage(e.target.value);
+              }}
+              style={{ margin: '20px auto' }}
+            />
             <Text style={{ marginTop: 12 }}>LIMIT PLAYERS</Text>
             <Input
               style={{
@@ -63,8 +79,37 @@ const ModalConfigGame = () => {
                 left: '50%',
                 transform: 'translate(-50%, 0)',
               }}
+              onClick={() => {
+                // dispatch(
+                //   writeRoomConfig({
+                //     roomId,
+                //     limitPlayers: 'inf',
+                //     message,
+                //     mode: 'INFINITY',
+                //   })
+                // );
+
+                // dispatch({
+                //   type: 'ROOM/WRITE_ROOM_CONFIG',
+                //   payload: {
+                //     roomId,
+                //     limitPlayers: 'inf',
+                //     message,
+                //     mode: 'INFINITY',
+                //   },
+                // });
+                dispatch(
+                  writeRoomConfig({
+                    roomId,
+                    limitPlayers: 'inf',
+                    message,
+                    mode: 'INFINITY',
+                  })
+                );
+                dispatch(hideModalSettingsRoom());
+              }}
             >
-              enter
+              Enter
             </Button>
           </div>
         </Container>

@@ -45,9 +45,9 @@ const Online = ({}) => {
   if (users.length) {
     usersJXS = (
       <div style={{ width: '60%', margin: '15px auto', textAlign: 'center' }}>
-        {users.map(({ userName, textColor }, index) => {
+        {users.map(({ userName, userColor }, index) => {
           return (
-            <Nickname key={index} color={textColor}>
+            <Nickname key={index} color={userColor}>
               {userName}
             </Nickname>
           );

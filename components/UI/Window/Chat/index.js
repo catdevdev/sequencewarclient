@@ -34,7 +34,7 @@ const Nickname = styled.p`
   font-weight: 700;
   font-size: 15px;
 
-  color: ${({ textColor }) => textColor};
+  color: ${({ userColor }) => userColor};
 `;
 const Message = styled.p`
   font-weight: 700;
@@ -42,6 +42,7 @@ const Message = styled.p`
 
   color: #fff;
   padding-left: 15px;
+  color: ${({ messageColor }) => messageColor};
 `;
 const ChatInput = styled.input`
   width: 100%;
@@ -90,15 +91,17 @@ const Chat = () => {
   return (
     <ChatContainer>
       <ChatArea>
-        {messages.map(({ message, userName, textColor }, index) => (
-          <MessageContainer key={index}>
-            <Nickname textColor={textColor}>
-              {userName}
-              {'>'}
-            </Nickname>
-            <Message>{message}</Message>
-          </MessageContainer>
-        ))}
+        {messages.map(
+          ({ message, userName, userColor, messageColor }, index) => (
+            <MessageContainer key={index}>
+              <Nickname userColor={userColor}>
+                {userName}
+                {'>'}
+              </Nickname>
+              <Message messageColor={messageColor}>{message}</Message>
+            </MessageContainer>
+          )
+        )}
       </ChatArea>
       <div
         style={{
