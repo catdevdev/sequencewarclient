@@ -21,6 +21,10 @@ io.on('connection', (socket) => {
     users.push(socket);
 
     socket.emit('user', user);
+    socket.emit(
+      'rooms',
+      rooms.filter((room) => room.activated !== false)
+    );
 
     users.map(({ id }) => {
       io.to(id).emit(
@@ -41,9 +45,11 @@ io.on('connection', (socket) => {
   });
 
   socket.on('createRoom', () => {
+    const { user } = users.filter((el) => el.id === socket.id)[0];
+
     rooms.push({
       id: shortID.generate(),
-      creator: socket.id,
+      creator: { id: socket.id, user },
       activated: false,
       configs: { limitPlayers: null, message: null, mode: null },
       users: [],
@@ -62,15 +68,42 @@ io.on('connection', (socket) => {
         index = i;
       }
     }
-
-    // const room = rooms.filter((el) => roomId === el.id)[0];
-    console.log(room);
+    socket.emit('addedRoom', room);
+    users.map(({ id }) => {
+      io.to(id).emit('addedRoom', room);
+    });
   });
 
-  socket.emit('rooms', rooms);
+  socket.on('joinRoom', (idRoom) => {
+    const userInRoom = {
+      id: users.filter((el) => el.id === socket.id)[0].id,
+      user: users.filter((el) => el.id === socket.id)[0].user,
+      team: 1,
+      colorSpaceship: 'green',
+    };
+    rooms = rooms.map((room) => {
+      if (room.id === idRoom) {
+        room.users = [...room.users, userInRoom];
+        return room;
+      }
+    });
 
-  socket.on('joinRoom', (indexRoom) => {
-      
+    const room = rooms.filter(({ id }) => id === idRoom)[0];
+
+    const usersInRoomAndCreator = [...room.users, room.creator];
+    const usersWithoutYouInRoom = usersInRoomAndCreator.filter(
+      ({ id }) => id !== socket.id
+    );
+
+    console.log(usersInRoomAndCreator);
+
+    usersWithoutYouInRoom.map(({ id }) => {
+      io.to(id).emit('addUserInRoom', userInRoom);
+    });
+
+    // const users
+    console.log(usersWithoutYouInRoom);
+    socket.emit('confirmJoinRoom', room);
   });
 
   socket.on('disconnect', () => {
