@@ -9,6 +9,8 @@ import Input from '../../Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideModalSettingsRoom } from '../../../../redux/actions/Modals';
 import { writeRoomConfig } from '../../../../redux/actions/Room';
+/* socket */
+import { socket } from '../../../Socket';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -44,6 +46,7 @@ const ModalConfigGame = () => {
   const dispatch = useDispatch();
 
   const roomId = useSelector((state) => state.room.roomId);
+  // const configs = useSelector((state) => state.room.roomConfig);
 
   const [message, setMessage] = useState('');
 
@@ -80,32 +83,14 @@ const ModalConfigGame = () => {
                 transform: 'translate(-50%, 0)',
               }}
               onClick={() => {
-                // dispatch(
-                //   writeRoomConfig({
-                //     roomId,
-                //     limitPlayers: 'inf',
-                //     message,
-                //     mode: 'INFINITY',
-                //   })
-                // );
-
-                // dispatch({
-                //   type: 'ROOM/WRITE_ROOM_CONFIG',
-                //   payload: {
-                //     roomId,
-                //     limitPlayers: 'inf',
-                //     message,
-                //     mode: 'INFINITY',
-                //   },
-                // });
-                dispatch(
-                  writeRoomConfig({
-                    roomId,
-                    limitPlayers: 'inf',
-                    message,
-                    mode: 'INFINITY',
-                  })
-                );
+                const configs = {
+                  roomId,
+                  limitPlayers: 'inf',
+                  message,
+                  mode: 'INFINITY',
+                };
+                dispatch(writeRoomConfig(configs));
+                socket.emit('activateRoom', configs);
                 dispatch(hideModalSettingsRoom());
               }}
             >

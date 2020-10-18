@@ -1,15 +1,17 @@
+/* imports */
 import { useEffect } from 'react';
-
-import App from 'next/app';
 import GlobalStyled from '../theme/globalStyles';
+import { socket } from '../components/Socket';
+/* components */
+import App from 'next/app';
 import Head from 'next/head';
 import Main from '../components/Layout/Main';
 import UICalls from '../components/UI/UICalls';
-
-import { socket } from '../components/Socket';
-
+/* redux */
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
+/* socketio */
+import { SocketCalls } from '../components/utils/sockets';
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {}, []);
@@ -30,7 +32,8 @@ function MyApp({ Component, pageProps }) {
       <GlobalStyled />
 
       <Provider store={store}>
-        <UICalls></UICalls>
+        <SocketCalls />
+         <UICalls />
         <Main>
           <Component {...pageProps} />
         </Main>

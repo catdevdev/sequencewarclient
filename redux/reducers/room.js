@@ -2,16 +2,20 @@ import {
   WRITE_ROOM_ID,
   WRITE_ROOM_CONFIG,
   SET_YOU_IS_CREATOR_ROOM,
-  ON_CREATED_ROOM,
-  ON_ENTER_IN_ROOM,
-  ON_LEAVE_FROM_ROOM,
-  ON_START_GAME,
+  SET_CURRENT_ROOM,
+  SET_YOU_IS_VISITOR,
+  SET_USERS_CURRENT_ROOM,
+  ADD_USER_CURRENT_ROOM,
+  REMOVE_USER_CURRENT_ROOM,
 } from '../actiontypes';
 
 const initialState = {
-  youIsCreatorRoom: false,
+  youIsCreatorRoome: false,
+  youIsVisitor: false,
   roomId: null,
   roomConfig: null,
+  currentRoom: null,
+  usersInRoom: [],
 };
 
 export const roomReducer = (state = initialState, action) => {
@@ -22,6 +26,19 @@ export const roomReducer = (state = initialState, action) => {
       return { ...state, roomConfig: action.payload };
     case SET_YOU_IS_CREATOR_ROOM:
       return { ...state, youIsCreatorRoom: true };
+    case SET_CURRENT_ROOM:
+      return { ...state, currentRoom: action.payload };
+    case SET_YOU_IS_VISITOR:
+      return { ...state, youIsVisitor: true };
+    case SET_USERS_CURRENT_ROOM:
+      return { ...state, usersInRoom: action.payload };
+    case ADD_USER_CURRENT_ROOM:
+      return { ...state, usersInRoom: [...state.usersInRoom, action.payload] };
+    case REMOVE_USER_CURRENT_ROOM:
+      return {
+        ...state,
+        usersInRoom: state.usersInRoom.filter(({ id }) => id !== action.id),
+      };
     default:
       return state;
   }

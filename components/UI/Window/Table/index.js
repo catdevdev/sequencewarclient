@@ -19,14 +19,18 @@ const Table = ({ lineEveryRow, widthCells, dataPrimary, rowsData }) => {
       <MarginBlock height="30px"></MarginBlock>
       <Row primary widthCells={widthCells} dataPrimary={dataPrimary} />
       <HorizontalLine />
-      {rowsData.map((rowData, id) => (
-        <Row
-          lineEveryRow={lineEveryRow}
-          key={id}
-          widthCells={widthCells}
-          rowData={rowData}
-        />
-      ))}
+      {rowsData ? (
+        rowsData.map((rowData, id) => (
+          <Row
+            lineEveryRow={lineEveryRow}
+            key={id}
+            widthCells={widthCells}
+            rowData={rowData}
+          />
+        ))
+      ) : (
+        <div>No rooms :(</div>
+      )}
     </ContainerTable>
   );
 };

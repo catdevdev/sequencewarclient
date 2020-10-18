@@ -82,11 +82,7 @@ const Chat = () => {
     setMessage('');
   };
 
-  useEffect(() => {
-    socket.on('message', (message) => {
-      dispatch(addMessage(message));
-    });
-  }, []);
+
 
   return (
     <ChatContainer>

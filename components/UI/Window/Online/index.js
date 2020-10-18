@@ -1,7 +1,7 @@
+/* imports */
 import styled from 'styled-components';
-
+/* components */
 import Header from '../Header';
-
 /* redux */
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -18,7 +18,6 @@ const StyledOnline = styled.div`
 
   border-left: 1px solid #fff;
 `;
-
 const Heading = styled.p`
   text-transform: uppercase;
 
@@ -29,7 +28,6 @@ const Heading = styled.p`
 
   margin-bottom: 10px;
 `;
-
 const Nickname = styled.p`
   font-size: 14px;
   font-weight: 700;

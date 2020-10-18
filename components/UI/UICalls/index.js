@@ -13,7 +13,6 @@ import {
   hideModalMobileChat,
 } from '../../../redux/actions/Modals';
 
-
 const UICalls = () => {
   const dispatch = useDispatch();
   const showModalInputUserCondition = useSelector(
@@ -48,10 +47,11 @@ const UICalls = () => {
           color="green"
         />
       )}
-      {showModalSettingsRoomCondition && <ModalConfigGame />}
 
       {showModalMobileChatCondition && <ModalChat />}
 
+      {showModalSettingsRoomCondition && <ModalConfigGame />}
+      
       {showModalSettingsSpaceShipCondition && <ModalSettingsSpaceShip />}
     </>
   );

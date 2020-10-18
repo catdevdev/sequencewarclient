@@ -22,9 +22,18 @@ const Cell = styled.div`
 
 const Data = styled.div`
   font-size: 12px;
-
   font-weight: 700;
   letter-spacing: 2px;
+
+  color: ${({ color }) => (color ? color : '#fff')};
+`;
+
+const ColorBlock = styled.div`
+  width: 100%;
+  height: 20px;
+  background: ${({ color }) => color};
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.25);
+  margin-top: 10px;
 `;
 
 const Button = styled.button`
@@ -62,11 +71,11 @@ const Row = ({ lineEveryRow, primary, dataPrimary, widthCells, rowData }) => {
       {primary ? (
         <>
           <RowContainer>
-            {dataPrimary.map(({ data, center }, index) => {
+            {dataPrimary.map(({ data, center, color }, index) => {
               if (data)
                 return (
                   <Cell key={index} width={widthCells[index]} center={center}>
-                    <Data>{data}</Data>
+                    <Data color={color}>{data}</Data>
                   </Cell>
                 );
             })}
@@ -75,27 +84,46 @@ const Row = ({ lineEveryRow, primary, dataPrimary, widthCells, rowData }) => {
       ) : (
         <>
           <RowContainer lineEveryRow={lineEveryRow}>
-            {rowData.map(({ data, button, colorSpaceship, center }, index) => {
-              if (data && !button)
-                return (
-                  <Cell key={index} width={widthCells[index]} center={center}>
-                    <Data>{data}</Data>
-                  </Cell>
-                );
-              else if (button) {
-                return (
-                  <Cell key={index} width={widthCells[index]} center={center}>
-                    <Button>{data}</Button>
-                  </Cell>
-                );
-              } else if (colorSpaceship) {
-                return (
-                  <Cell key={index} width={widthCells[index]} center={center}>
-                    <Triangle color={colorSpaceship} />
-                  </Cell>
-                );
+            {rowData.map(
+              (
+                {
+                  data,
+                  button,
+                  color,
+                  colorBlock,
+                  colorSpaceship,
+                  center,
+                  callback,
+                },
+                index
+              ) => {
+                if (data && !button)
+                  return (
+                    <Cell key={index} width={widthCells[index]} center={center}>
+                      <Data color={color}>{data}</Data>
+                    </Cell>
+                  );
+                else if (colorBlock) {
+                  return (
+                    <Cell key={index} width={widthCells[index]} center={center}>
+                      <ColorBlock color={colorBlock} />
+                    </Cell>
+                  );
+                } else if (button) {
+                  return (
+                    <Cell key={index} width={widthCells[index]} center={center}>
+                      <Button onClick={callback && callback}>{data}</Button>
+                    </Cell>
+                  );
+                } else if (colorSpaceship) {
+                  return (
+                    <Cell key={index} width={widthCells[index]} center={center}>
+                      <Triangle color={colorSpaceship} />
+                    </Cell>
+                  );
+                }
               }
-            })}
+            )}
           </RowContainer>
         </>
       )}

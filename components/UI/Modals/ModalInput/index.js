@@ -71,15 +71,6 @@ const ModalInput = ({ message, submitText, color }) => {
 
   const sendDataHandler = () => {
     socket.emit('user', { userName, userColor: textColor.hex });
-    socket.on('user', (user) => {
-      dispatch(onUser(user));
-      dispatch(hideModalInputUser());
-      console.log(user);
-    });
-    socket.on('users', (users) => {
-      console.log(users);
-      dispatch(onUsers(users));
-    });
   };
   return (
     <>

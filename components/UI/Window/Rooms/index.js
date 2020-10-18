@@ -1,4 +1,5 @@
 /* imports */
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 /* components */
@@ -69,49 +70,84 @@ const Rooms = ({}) => {
       data: 'test',
     },
   ];
+  // const rowsData = [
+  //   [
+  //     {
+  //       data: '1/20',
+  //       center: true,
+  //     },
+  //     {
+  //       data: 'Infinity waves',
+  //     },
+  //     {
+  //       data: 'CATDEV',
+  //     },
+  //     {
+  //       data: 'Заходите все сюда!!!!! Noobs only!',
+  //     },
+  //     {
+  //       button: true,
+  //       data: 'Join',
+  //       center: true,
+  //       callback: (id) => {
+  //         console.log(id);
+  //       },
+  //     },
+  //   ],
+  // ];
 
-  const rowsData = [
-    [
-      {
-        data: '1/20',
-        center: true,
-      },
-      {
-        data: 'Infinity waves',
-      },
-      {
-        data: 'CATDEV',
-      },
-      {
-        data: 'Заходите все сюда!!!!! Noobs only!',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-    [
-      {
-        data: '1/∞',
-        center: true,
-      },
-      {
-        data: 'Scores',
-      },
-      {
-        data: 'Ania33',
-      },
-      {
-        data: 'Go 500 players',
-      },
-      {
-        button: true,
-        data: 'Join',
-        center: true,
-      },
-    ],
-  ];
+  // const [rowsData, setRowsData] = useState();
+
+  // {
+  //   id: 'K2wAVlTot',
+  //   creator: {
+  //     socketId: '6nBGesAp_aX91DyIAAAw',
+  //     user: {
+  //       userName: 'фыва',
+  //       userColor: '#0049ff'
+  //     }
+  //   },
+  //   activated: true,
+  //   configs: {
+  //     limitPlayers: 'inf',
+  //     message: 'фывафыва',
+  //     mode: 'INFINITY'
+  //   },
+  //   users: []
+  // }
+
+  const rooms = useSelector((state) => state.rooms.rooms);
+
+  const rowsData =
+    rooms &&
+    rooms.map(
+      ({
+        id,
+        creator: {
+          user: { userName, userColor },
+        },
+        configs: { limitPlayers, mode, message },
+      }) => {
+        return [
+          {
+            data: limitPlayers,
+            center: true,
+          },
+          { data: mode },
+          { data: userName, color: userColor },
+          { data: message },
+          {
+            button: true,
+            data: 'Join',
+            center: true,
+            callback: () => {
+              socket.emit('joinRoom', id);
+              console.log(id);
+            },
+          },
+        ];
+      }
+    );
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -140,13 +176,6 @@ const Rooms = ({}) => {
       <Button
         onClick={() => {
           socket.emit('createRoom');
-          socket.on('createdRoom', (id) => {
-            dispatch(writeRoomId(id));
-            dispatch(setYouIsCreatorRoom());
-            
-            console.log(id);
-            router.push('/lobby');
-          });
         }}
       >
         Create new game

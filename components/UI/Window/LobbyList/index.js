@@ -44,6 +44,41 @@ const LobbyListContainer = styled.div`
 `;
 const SettingsSpaceshipContainer = styled.div``;
 
+const dataPrimary = [
+  {
+    data: 'Username',
+    center: true,
+  },
+  {
+    data: 'Color',
+  },
+  {
+    data: 'Team',
+    center: true,
+  },
+  {
+    data: 'Figure',
+  },
+];
+const rowsData = [
+  [
+    {
+      data: 'catdev',
+      center: true,
+    },
+    {
+      data: 'Infinity waves',
+    },
+    {
+      data: '#1',
+      center: true,
+    },
+    {
+      colorSpaceship: 'rgb(0,255,0)',
+    },
+  ],
+];
+
 const Rooms = ({ dataPrimary, rowsData }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -52,6 +87,12 @@ const Rooms = ({ dataPrimary, rowsData }) => {
   const youIsCreatorRoomCondition = useSelector(
     (state) => state.room.youIsCreatorRoom
   );
+  const youIsVisitorRoomCondition = useSelector(
+    (state) => state.room.youIsVisitor
+  );
+  const users = useSelector((state) => state.room.usersInRoom);
+  console.log('users:');
+  console.log(users);
   console.log(configs);
   return (
     <StyledRooms>
@@ -123,7 +164,6 @@ const Rooms = ({ dataPrimary, rowsData }) => {
         <Button
           onClick={() => {
             if (configs) {
-              socket.emit('activateRoom', configs);
               router.push('/game');
             } else {
               dispatch(
