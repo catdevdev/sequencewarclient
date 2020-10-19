@@ -81,12 +81,16 @@ io.on('connection', (socket) => {
       team: 1,
       colorSpaceship: 'green',
     };
+    console.log('before');
+    console.log(rooms);
     rooms = rooms.map((room) => {
       if (room.id === idRoom) {
         room.users = [...room.users, userInRoom];
-        return room;
       }
+      return room;
     });
+    console.log('after');
+    console.log(rooms);
 
     const room = rooms.filter(({ id }) => id === idRoom)[0];
 
@@ -102,8 +106,30 @@ io.on('connection', (socket) => {
     });
 
     // const users
-    console.log(usersWithoutYouInRoom);
+    // console.log(usersWithoutYouInRoom);
     socket.emit('confirmJoinRoom', room);
+  });
+
+  socket.on('leaveRoom', (idRoom) => {
+    rooms = rooms.map((room) => {
+      if (room.id === idRoom) {
+        room.users = room.users.filter(({ id }) => id !== socket.id);
+        return room;
+      }
+    });
+
+    const room = rooms.filter(({ id }) => id === idRoom)[0];
+
+    const usersInRoomAndCreator = [...room.users, room.creator];
+    const usersWithoutYouInRoom = usersInRoomAndCreator.filter(
+      ({ id }) => id !== socket.id
+    );
+    socket.emit('leaveYourselfFromRoom');
+    usersWithoutYouInRoom.map(({ id }) => {
+      io.to(id).emit('leaveUserFromRoom', socket.id);
+    });
+
+    socket.emit('showAlert', 'You are left from game!');
   });
 
   socket.on('disconnect', () => {
