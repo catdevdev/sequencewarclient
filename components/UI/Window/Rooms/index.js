@@ -117,7 +117,6 @@ const Rooms = ({}) => {
   // }
 
   const rooms = useSelector((state) => state.rooms.rooms);
-
   const rowsData =
     rooms &&
     rooms.map(

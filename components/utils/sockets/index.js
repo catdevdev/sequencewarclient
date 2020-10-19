@@ -7,7 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { writeRooms, addRoom } from '../../../redux/actions/Rooms';
 import { onMessages, addMessage } from '../../../redux/actions/Chat';
 import { onUser } from '../../../redux/actions/InputName';
-import { hideModalInputUser } from '../../../redux/actions/Modals';
+import {
+  hideModalInputUser,
+  showModalAlert,
+} from '../../../redux/actions/Modals';
 import { onUsers } from '../../../redux/actions/Users';
 import {
   setYouIsCreatorRoom,
@@ -16,6 +19,8 @@ import {
   setYouIsVisitor,
   setUsersCurrentRoom,
   addUserCurrentRoom,
+  removeUserCurrentRoom,
+  resetCurrentRoom,
 } from '../../../redux/actions/Room';
 
 const SocketCalls = () => {
@@ -52,6 +57,18 @@ const SocketCalls = () => {
     });
     socket.on('addUserInRoom', (user) => {
       dispatch(addUserCurrentRoom(user));
+    });
+    socket.on('leaveYourselfFromRoom', () => {
+      dispatch(resetCurrentRoom());
+
+      router.push('/');
+    });
+    socket.on('leaveUserFromRoom', (userId) => {
+      dispatch(removeUserCurrentRoom(userId));
+      console.log(userId);
+    });
+    socket.on('showAlert', (text) => {
+      dispatch(showModalAlert(text));
     });
 
     // export function addUserCurrentRoom(user) {

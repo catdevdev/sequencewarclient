@@ -12,6 +12,7 @@ import {
   showModalMobileChat,
   hideModalMobileChat,
 } from '../../../redux/actions/Modals';
+import ModalAlert from '../Modals/ModalAlert';
 
 const UICalls = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ const UICalls = () => {
   );
   const showModalSettingsRoomCondition = useSelector(
     (state) => state.modals.showSettingsRoom
+  );
+  const showModalAlertCondition = useSelector(
+    (state) => state.modals.alert.show
   );
 
   console.log(showModalMobileChatCondition);
@@ -51,8 +55,10 @@ const UICalls = () => {
       {showModalMobileChatCondition && <ModalChat />}
 
       {showModalSettingsRoomCondition && <ModalConfigGame />}
-      
+
       {showModalSettingsSpaceShipCondition && <ModalSettingsSpaceShip />}
+
+      {showModalAlertCondition && <ModalAlert />}
     </>
   );
 };

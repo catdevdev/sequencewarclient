@@ -7,6 +7,7 @@ import {
   SET_USERS_CURRENT_ROOM,
   ADD_USER_CURRENT_ROOM,
   REMOVE_USER_CURRENT_ROOM,
+  RESET_CURRENT_ROOM
 } from '../actiontypes';
 
 const initialState = {
@@ -37,7 +38,18 @@ export const roomReducer = (state = initialState, action) => {
     case REMOVE_USER_CURRENT_ROOM:
       return {
         ...state,
-        usersInRoom: state.usersInRoom.filter(({ id }) => id !== action.id),
+        usersInRoom: state.usersInRoom.filter(
+          ({ id }) => id !== action.payload
+        ),
+      };
+    case RESET_CURRENT_ROOM:
+      return {
+        youIsCreatorRoome: false,
+        youIsVisitor: false,
+        roomId: null,
+        roomConfig: null,
+        currentRoom: null,
+        usersInRoom: [],
       };
     default:
       return state;

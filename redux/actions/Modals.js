@@ -7,6 +7,8 @@ import {
   HIDE_MODAL_SETTINGS_SPACESHIP,
   SHOW_MODAL_SETTINGS_ROOM,
   HIDE_MODAL_SETTINGS_ROOM,
+  SHOW_MODAL_ALERT,
+  HIDE_MODAL_ALERT,
 } from '../actiontypes';
 
 /* ModalInputUser */
@@ -58,5 +60,19 @@ export function showModalSettingsRoom() {
 export function hideModalSettingsRoom() {
   return {
     type: HIDE_MODAL_SETTINGS_ROOM,
+  };
+}
+
+/* ModalAlert */
+export function showModalAlert(text) {
+  return {
+    type: SHOW_MODAL_ALERT,
+    payload: text,
+  };
+}
+
+export function hideModalAlert() {
+  return {
+    type: HIDE_MODAL_ALERT,
   };
 }

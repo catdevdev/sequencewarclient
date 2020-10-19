@@ -91,6 +91,11 @@ const Rooms = ({ dataPrimary, rowsData }) => {
     (state) => state.room.youIsVisitor
   );
   const users = useSelector((state) => state.room.usersInRoom);
+
+  const currentRoomId = useSelector((state) => state.room.currentRoom);
+  console.log('currentRoomId:');
+  console.log(currentRoomId);
+
   console.log('users:');
   console.log(users);
   console.log(configs);
@@ -116,18 +121,35 @@ const Rooms = ({ dataPrimary, rowsData }) => {
           rowsData={rowsData}
         />
       </LobbyListContainer>
-      <Button
-        onClick={() => {
-          router.push('/');
-        }}
-        style={{
-          width: '100px',
-          left: '28px',
-          bottom: '22px',
-        }}
-      >
-        Leave
-      </Button>
+      {youIsCreatorRoomCondition && (
+        <Button
+          onClick={() => {
+            // socket.emit('leaveRoom');
+            // router.push('/');
+          }}
+          style={{
+            width: '150px',
+            left: '28px',
+            bottom: '22px',
+          }}
+        >
+          Remove room
+        </Button>
+      )}
+      {youIsVisitorRoomCondition && (
+        <Button
+          onClick={() => {
+            socket.emit('leaveRoom', currentRoomId.id);
+          }}
+          style={{
+            width: '100px',
+            left: '28px',
+            bottom: '22px',
+          }}
+        >
+          Leave
+        </Button>
+      )}
       <div
         style={{
           position: 'absolute',

@@ -7,6 +7,7 @@ import {
   SET_YOU_IS_VISITOR,
   ADD_USER_CURRENT_ROOM,
   REMOVE_USER_CURRENT_ROOM,
+  RESET_CURRENT_ROOM,
 } from '../actiontypes';
 
 // user => {username: "catdev", color: "#fff"}
@@ -61,5 +62,11 @@ export function removeUserCurrentRoom(id) {
   return {
     type: REMOVE_USER_CURRENT_ROOM,
     payload: id,
+  };
+}
+
+export function resetCurrentRoom() {
+  return {
+    type: RESET_CURRENT_ROOM,
   };
 }
