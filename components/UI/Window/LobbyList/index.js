@@ -1,19 +1,19 @@
 /* imports */
-import styled from 'styled-components';
-import { useRouter } from 'next/router';
+import styled from 'styled-components'
+import { useRouter } from 'next/router'
 /* redux */
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import {
   showModalSettingsSpaceShip,
   showModalSettingsRoom,
-} from '../../../../redux/actions/Modals';
-import { addMessage } from '../../../../redux/actions/Chat';
+} from '../../../../redux/actions/Modals'
+import { addMessage } from '../../../../redux/actions/Chat'
 /* components */
-import Header from '../Header';
-import Table from '../Table';
-import MarginBlock from '../../../Layout/MarginBlock';
+import Header from '../Header'
+import Table from '../Table'
+import MarginBlock from '../../../Layout/MarginBlock'
 /* socketio */
-import { socket } from '../../../Socket';
+import { socket } from '../../../Socket'
 
 const StyledRooms = styled.div`
   position: relative;
@@ -21,7 +21,7 @@ const StyledRooms = styled.div`
   width: 100%;
   height: 60%;
   border-bottom: 1px solid #fff;
-`;
+`
 const Button = styled.button`
   position: absolute;
 
@@ -34,15 +34,15 @@ const Button = styled.button`
 
   text-transform: uppercase;
   font-size: 16px;
-`;
+`
 const LobbyListContainer = styled.div`
   margin: 0 auto;
   width: 80%;
   @media (max-width: 1350px) {
     width: 90%;
   }
-`;
-const SettingsSpaceshipContainer = styled.div``;
+`
+const SettingsSpaceshipContainer = styled.div``
 
 const dataPrimary = [
   {
@@ -59,7 +59,7 @@ const dataPrimary = [
   {
     data: 'Figure',
   },
-];
+]
 const rowsData = [
   [
     {
@@ -77,28 +77,29 @@ const rowsData = [
       colorSpaceship: 'rgb(0,255,0)',
     },
   ],
-];
+]
 
 const Rooms = ({ dataPrimary, rowsData }) => {
-  const dispatch = useDispatch();
-  const router = useRouter();
+  const dispatch = useDispatch()
+  const router = useRouter()
 
-  const configs = useSelector((state) => state.room.roomConfig);
+  const configs = useSelector((state) => state.room.roomConfig)
   const youIsCreatorRoomCondition = useSelector(
-    (state) => state.room.youIsCreatorRoom
-  );
+    (state) => state.room.youIsCreatorRoom,
+  )
   const youIsVisitorRoomCondition = useSelector(
-    (state) => state.room.youIsVisitor
-  );
-  const users = useSelector((state) => state.room.usersInRoom);
+    (state) => state.room.youIsVisitor,
+  )
+  const users = useSelector((state) => state.room.usersInRoom)
 
-  const currentRoomId = useSelector((state) => state.room.currentRoom);
-  console.log('currentRoomId:');
-  console.log(currentRoomId);
+  const currentRoomId = useSelector((state) => state.room.currentRoom)
+  const roomId = useSelector((state) => state.room.roomId)
+  console.log('currentRoomId:')
+  console.log(currentRoomId)
 
-  console.log('users:');
-  console.log(users);
-  console.log(configs);
+  console.log('users:')
+  console.log(users)
+  console.log(configs)
   return (
     <StyledRooms>
       <Header>
@@ -124,8 +125,7 @@ const Rooms = ({ dataPrimary, rowsData }) => {
       {youIsCreatorRoomCondition && (
         <Button
           onClick={() => {
-            // socket.emit('leaveRoom');
-            // router.push('/');
+            socket.emit('leaveRoom', roomId)
           }}
           style={{
             width: '150px',
@@ -139,7 +139,7 @@ const Rooms = ({ dataPrimary, rowsData }) => {
       {youIsVisitorRoomCondition && (
         <Button
           onClick={() => {
-            socket.emit('leaveRoom', currentRoomId.id);
+            socket.emit('leaveRoom', currentRoomId.id)
           }}
           style={{
             width: '100px',
@@ -160,7 +160,7 @@ const Rooms = ({ dataPrimary, rowsData }) => {
         {youIsCreatorRoomCondition ? (
           <Button
             onClick={() => {
-              dispatch(showModalSettingsRoom());
+              dispatch(showModalSettingsRoom())
             }}
             style={{
               position: 'static',
@@ -172,7 +172,7 @@ const Rooms = ({ dataPrimary, rowsData }) => {
         ) : (
           <Button
             onClick={() => {
-              dispatch(showModalSettingsSpaceShip());
+              dispatch(showModalSettingsSpaceShip())
             }}
             style={{
               position: 'static',
@@ -186,7 +186,7 @@ const Rooms = ({ dataPrimary, rowsData }) => {
         <Button
           onClick={() => {
             if (configs) {
-              router.push('/game');
+              router.push('/game')
             } else {
               dispatch(
                 addMessage({
@@ -194,8 +194,8 @@ const Rooms = ({ dataPrimary, rowsData }) => {
                   userColor: 'red',
                   message: 'Please, config room',
                   messageColor: 'red',
-                })
-              );
+                }),
+              )
             }
           }}
           style={{
@@ -206,7 +206,7 @@ const Rooms = ({ dataPrimary, rowsData }) => {
         </Button>
       </div>
     </StyledRooms>
-  );
-};
+  )
+}
 
-export default Rooms;
+export default Rooms
