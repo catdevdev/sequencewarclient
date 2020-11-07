@@ -186,7 +186,8 @@ const Rooms = ({ dataPrimary, rowsData }) => {
         <Button
           onClick={() => {
             if (configs) {
-              router.push('/game')
+              socket.emit('startGame')
+              router.push('/game')              
             } else {
               dispatch(
                 addMessage({
