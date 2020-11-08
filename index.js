@@ -11,10 +11,12 @@ const removeElementByName = require('./utils')
 /* data */
 let users = []
 let chatMessages = []
-
 let rooms = []
+let gameSessions = []
 
 io.on('connection', (socket) => {
+  console.log('connection made')
+
   socket.on('user', (user) => {
     console.log(`Connection Made! id: ${socket.id} `)
     socket.user = user
@@ -110,6 +112,33 @@ io.on('connection', (socket) => {
     socket.emit('confirmJoinRoom', room)
   })
 
+  socket.on('startGame', (idRoom) => {
+    console.log('||| START GAME |||')
+    console.log(`idRoom: ${idRoom}`)
+  })
+
+  socket.on('loadingGame', ({ idRoom, loadingStatus }) => {
+    const room = rooms.filter(({ id }) => id === idRoom)[0]
+    const users = room.users
+
+    users.map(({ id }) => {
+      io.to(id).emit('loadingGame', loadingStatus)
+    })
+  })
+
+  socket.on('gameLoaded', (idRoom) => {
+    console.log('!!!GAME IS CONNECTED TO SERVER!!!')
+    const room = rooms.filter(({ id }) => id === idRoom)[0]
+    const users = room.users
+    console.log(users)
+    users.map(({ id }) => {
+      io.to(id).emit('gameStart')      
+    })
+    socket.emit('sendToGameUsersData', {users})
+  })
+
+  socket.on('joystickData', ({}))
+
   socket.on('leaveRoom', (idRoom) => {
     rooms = rooms.map((room) => {
       if (room.id === idRoom) {
@@ -172,3 +201,31 @@ io.on('connection', (socket) => {
 app.server.listen(3000)
 
 console.log('Server has started')
+
+
+
+// const dataCall = {
+//   typeCall: "spawn",
+//   Instantiate: {
+//     entityData: {
+//       id: "f4fjkd1dj3d4",
+//       entityName: "arrow",
+//       nickName: "lol228322",
+//       team: "1",
+//       color: "#aa23aa",      
+//     },
+//     positionData: {
+//       position: {x: 10, y: 20},
+//       rotate: {deg: 90}
+//     }
+//   }
+// }
+
+// {
+//   "typeCall": "spawn",
+//   "Instantiate": {}
+
+
+
+
+// }
