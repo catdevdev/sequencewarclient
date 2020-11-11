@@ -7,8 +7,9 @@ import {
   SET_USERS_CURRENT_ROOM,
   ADD_USER_CURRENT_ROOM,
   REMOVE_USER_CURRENT_ROOM,
-  RESET_CURRENT_ROOM
-} from '../actiontypes';
+  RESET_CURRENT_ROOM,
+  SET_LOADING_GAME_STATUS,
+} from '../actiontypes'
 
 const initialState = {
   youIsCreatorRoome: false,
@@ -17,31 +18,34 @@ const initialState = {
   roomConfig: null,
   currentRoom: null,
   usersInRoom: [],
-};
+  loadingGameStatus: 0,
+}
 
 export const roomReducer = (state = initialState, action) => {
   switch (action.type) {
     case WRITE_ROOM_ID:
-      return { ...state, roomId: action.payload };
+      return { ...state, roomId: action.payload }
     case WRITE_ROOM_CONFIG:
-      return { ...state, roomConfig: action.payload };
+      return { ...state, roomConfig: action.payload }
     case SET_YOU_IS_CREATOR_ROOM:
-      return { ...state, youIsCreatorRoom: true };
+      return { ...state, youIsCreatorRoom: true }
     case SET_CURRENT_ROOM:
-      return { ...state, currentRoom: action.payload };
+      return { ...state, currentRoom: action.payload }
     case SET_YOU_IS_VISITOR:
-      return { ...state, youIsVisitor: true };
+      return { ...state, youIsVisitor: true }
     case SET_USERS_CURRENT_ROOM:
-      return { ...state, usersInRoom: action.payload };
+      return { ...state, usersInRoom: action.payload }
     case ADD_USER_CURRENT_ROOM:
-      return { ...state, usersInRoom: [...state.usersInRoom, action.payload] };
+      return { ...state, usersInRoom: [...state.usersInRoom, action.payload] }
+    case ADD_USER_CURRENT_ROOM:
+      return { ...state, usersInRoom: [...state.usersInRoom, action.payload] }
     case REMOVE_USER_CURRENT_ROOM:
       return {
         ...state,
         usersInRoom: state.usersInRoom.filter(
-          ({ id }) => id !== action.payload
+          ({ id }) => id !== action.payload,
         ),
-      };
+      }
     case RESET_CURRENT_ROOM:
       return {
         youIsCreatorRoome: false,
@@ -50,8 +54,12 @@ export const roomReducer = (state = initialState, action) => {
         roomConfig: null,
         currentRoom: null,
         usersInRoom: [],
-      };
+      }
+    case SET_LOADING_GAME_STATUS:
+      return { ...state, loadingGameStatus: action.payload }
+    /*  */
+
     default:
-      return state;
+      return state
   }
-};
+}

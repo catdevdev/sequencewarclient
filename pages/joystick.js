@@ -1,25 +1,46 @@
-import Head from 'next/head';
-
-import styled from 'styled-components';
-import Background from '../components/UI/Background';
-
-import ReactNipple from 'react-nipple';
-
-import Bar from '../components/UI/Joystick/Bar';
+/* imports */
+import { useState } from 'react'
+import Head from 'next/head'
+import styled from 'styled-components'
+import ReactNipple from 'react-nipple'
+/* components */
+import Background from '../components/UI/Background'
+import Bar from '../components/UI/Joystick/Bar'
+import LoadingStatusBar from '../components/UI/Joystick/LoadingStatusBar'
+/* redux */
+import { useSelector, useDispatch } from 'react-redux'
 
 const Joystick = () => {
   const handleEvent = (evt, data) => {
     // console.log(evt.target.box);
-    console.log(data.instance.frontPosition);
-  };
+    console.log(data.instance.frontPosition)
+  }
 
-  return (
+  const loadingGameStatus = useSelector((state) => state.room.loadingGameStatus)
+
+  const [loadingStatus, setLoadingStatus] = useState()
+
+  const LoadingStatusJSX = (
     <>
-      <Background color="#313131" />
-      <Head>
-        <title>Game Lobby</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          height: '100vh',
+        }}
+      >
+        <LoadingStatusBar loadingStatus={loadingGameStatus}></LoadingStatusBar>
+      </div>
+    </>
+  )
+
+  const JoystickJSX = (
+    <>
       <div
         style={{
           marginTop: '50px',
@@ -58,7 +79,20 @@ const Joystick = () => {
         />
       </div>
     </>
-  );
-};
+  )
 
-export default Joystick;
+  return (
+    <>
+      <Background color="#313131" />
+      <Head>
+        <title>Game Lobby</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      {/* {JoystickJSX} */}
+      {LoadingStatusJSX}
+    </>
+  )
+}
+
+export default Joystick

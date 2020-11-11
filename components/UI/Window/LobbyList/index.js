@@ -83,7 +83,7 @@ const Rooms = ({ dataPrimary, rowsData }) => {
   const dispatch = useDispatch()
   const router = useRouter()
 
-  const configs = useSelector((state) => state.room.roomConfig)
+  const roomConfigs = useSelector((state) => state.room.roomConfig)
   const youIsCreatorRoomCondition = useSelector(
     (state) => state.room.youIsCreatorRoom,
   )
@@ -99,7 +99,7 @@ const Rooms = ({ dataPrimary, rowsData }) => {
 
   console.log('users:')
   console.log(users)
-  console.log(configs)
+  console.log(roomConfigs)
   return (
     <StyledRooms>
       <Header>
@@ -185,9 +185,9 @@ const Rooms = ({ dataPrimary, rowsData }) => {
 
         <Button
           onClick={() => {
-            if (configs) {
-              socket.emit('startGame')
-              router.push('/game')              
+            if (roomConfigs) {
+              socket.emit('startGameSession', roomConfigs.roomId)
+              router.push('/game')
             } else {
               dispatch(
                 addMessage({

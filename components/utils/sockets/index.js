@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { socket } from '../../Socket'
 import { useRouter } from 'next/router'
 /* redux */
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { writeRooms, addRoom, removeRoom } from '../../../redux/actions/Rooms'
 import { onMessages, addMessage } from '../../../redux/actions/Chat'
 import { onUser } from '../../../redux/actions/InputName'
@@ -21,6 +21,7 @@ import {
   addUserCurrentRoom,
   removeUserCurrentRoom,
   resetCurrentRoom,
+  setLoadingGameStatus,
 } from '../../../redux/actions/Room'
 
 const SocketCalls = () => {
@@ -81,6 +82,15 @@ const SocketCalls = () => {
     })
     socket.on('showAlert', (text) => {
       dispatch(showModalAlert(text))
+    })
+    /* Game session */
+
+    socket.on('startGameSession', () => {
+      router.push('/joystick')
+    })
+    socket.on('loadingGameProcess', (loadingStatus) => {
+      dispatch(setLoadingGameStatus(loadingStatus))
+      console.log(`${loadingStatus} - loading... (data from server)`)
     })
 
     // export function addUserCurrentRoom(user) {
