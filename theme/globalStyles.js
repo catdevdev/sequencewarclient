@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
   
@@ -17,12 +17,16 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Space Mono', sans-serif;
+    font-family: 'Space Mono';
+  }
+
+  body {
+    font-family: 'Space Mono';
   }
 
   html {
     height:100%;
-    font-family: 'Space Mono', sans-serif;
+    font-family: 'Space Mono';
 
     font-size: 50px;
     color: #fff;
@@ -32,6 +36,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Space Mono', sans-serif;
     color: #fff;
   }
-`;
+`
 
-export default GlobalStyle;
+export default GlobalStyle

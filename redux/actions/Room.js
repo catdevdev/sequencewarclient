@@ -72,9 +72,3 @@ export function resetCurrentRoom() {
   }
 }
 
-export function setLoadingGameStatus(progress) {
-  return {
-    type: SET_LOADING_GAME_STATUS,
-    payload: progress,
-  }
-}

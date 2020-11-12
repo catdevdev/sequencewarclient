@@ -27,9 +27,9 @@ export const modalsReducer = (state = initialState, action) => {
       return { ...state, showInputUser: false }
 
     case SHOW_MODAL_MOBILE_CHAT:
-      return { ...state, showMobilechat: true }
+      return { ...state, showMobileChat: true }
     case HIDE_MODAL_MOBILE_CHAT:
-      return { ...state, showMobilechat: false }
+      return { ...state, showMobileChat: false }
 
     case SHOW_MODAL_SETTINGS_SPACESHIP:
       return { ...state, showSettingsSpaceship: true }

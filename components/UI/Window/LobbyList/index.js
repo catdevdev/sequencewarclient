@@ -90,16 +90,10 @@ const Rooms = ({ dataPrimary, rowsData }) => {
   const youIsVisitorRoomCondition = useSelector(
     (state) => state.room.youIsVisitor,
   )
-  const users = useSelector((state) => state.room.usersInRoom)
 
   const currentRoomId = useSelector((state) => state.room.currentRoom)
   const roomId = useSelector((state) => state.room.roomId)
-  console.log('currentRoomId:')
-  console.log(currentRoomId)
 
-  console.log('users:')
-  console.log(users)
-  console.log(roomConfigs)
   return (
     <StyledRooms>
       <Header>
@@ -182,29 +176,30 @@ const Rooms = ({ dataPrimary, rowsData }) => {
             Setting Spaceship
           </Button>
         )}
-
-        <Button
-          onClick={() => {
-            if (roomConfigs) {
-              socket.emit('startGameSession', roomConfigs.roomId)
-              router.push('/game')
-            } else {
-              dispatch(
-                addMessage({
-                  userName: 'Room',
-                  userColor: 'red',
-                  message: 'Please, config room',
-                  messageColor: 'red',
-                }),
-              )
-            }
-          }}
-          style={{
-            position: 'static',
-          }}
-        >
-          Start game
-        </Button>
+        {roomConfigs && (
+          <Button
+            onClick={() => {
+              if (roomConfigs) {
+                socket.emit('startGameSession', roomConfigs.roomId)
+                router.push('/game')
+              } else {
+                dispatch(
+                  addMessage({
+                    userName: 'Room',
+                    userColor: 'red',
+                    message: 'Please, config room',
+                    messageColor: 'red',
+                  }),
+                )
+              }
+            }}
+            style={{
+              position: 'static',
+            }}
+          >
+            Start game
+          </Button>
+        )}
       </div>
     </StyledRooms>
   )

@@ -1,31 +1,33 @@
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+/* import */
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import styled from 'styled-components'
+/* UI */
+import Container from '../components/Layout/Container'
+import Header from '../components/Layout/Header'
 
-import styled from 'styled-components';
-
-import Container from '../components/Layout/Container';
-
-import Header from '../components/Layout/Header';
-
-import Window from '../components/UI/Window';
-import WindowHeader from '../components/UI/Window/Header';
-import Rooms from '../components/UI/Window/Rooms';
-import Chat from '../components/UI/Window/Chat';
-import Online from '../components/UI/Window/Online';
-import Button from '../components/UI/Button';
-
-import MobileWindow from '../components/UI/Mobile/Window';
-import MobileRooms from '../components/UI/Mobile/Window/Rooms';
-import MobileChat from '../components/UI/Mobile/Chat';
-
-import Background from '../components/UI/Background';
-import VerticalLine from '../components/UI/VerticalLine';
-
+/* components */
+/* 0 */
+import Window from '../components/UI/Window'
+import WindowHeader from '../components/UI/Window/Header'
+import Rooms from '../components/UI/Window/Rooms'
+import Chat from '../components/UI/Window/Chat'
+import Online from '../components/UI/Window/Online'
+import Button from '../components/UI/Button'
+/* 1 */
+import MobileWindow from '../components/UI/Mobile/Window'
+import MobileRooms from '../components/UI/Mobile/Window/Rooms'
+import MobileChat from '../components/UI/Mobile/Chat'
+/* 2 */
+import Background from '../components/UI/Background'
+import VerticalLine from '../components/UI/VerticalLine'
 // import ModalInput from '../components/UI/ModalInput';
-import Backdrop from '../components/UI/Backdrop';
+import Backdrop from '../components/UI/Backdrop'
+/* socket */
+import { socket } from '../components/Socket'
 
 export default function Home() {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <>
@@ -81,7 +83,7 @@ export default function Home() {
           <div>
             <Button
               onClick={() => {
-                router.push('/lobby');
+                socket.emit('createRoom')
               }}
               style={{ width: '80%', margin: '30px auto' }}
             >
@@ -92,5 +94,5 @@ export default function Home() {
         </MobileWindow>
       </Container>
     </>
-  );
+  )
 }

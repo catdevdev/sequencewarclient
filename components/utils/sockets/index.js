@@ -21,8 +21,9 @@ import {
   addUserCurrentRoom,
   removeUserCurrentRoom,
   resetCurrentRoom,
-  setLoadingGameStatus,
 } from '../../../redux/actions/Room'
+
+import { setLoadingGameStatus, setGameStart } from '../../../redux/actions/Game'
 
 const SocketCalls = () => {
   const dispatch = useDispatch()
@@ -91,6 +92,9 @@ const SocketCalls = () => {
     socket.on('loadingGameProcess', (loadingStatus) => {
       dispatch(setLoadingGameStatus(loadingStatus))
       console.log(`${loadingStatus} - loading... (data from server)`)
+    })
+    socket.on('gameStart', () => {
+      dispatch(setGameStart(true))
     })
 
     // export function addUserCurrentRoom(user) {

@@ -1,46 +1,46 @@
 /* imports */
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 /* components */
-import ModalConfigGame from '../Modals/ModalConfigGame';
-import ModalInput from '../Modals/ModalInput';
-import ModalChat from '../Mobile/Chat';
-import ModalSettingsSpaceShip from '../Modals/ModalSettingsSpaceShip';
+import ModalConfigGame from '../Modals/ModalConfigGame'
+import ModalInput from '../Modals/ModalInput'
+import ModalChat from '../Mobile/Chat'
+import ModalSettingsSpaceShip from '../Modals/ModalSettingsSpaceShip'
 /* redux */
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import {
   showModalInputUser,
   showModalMobileChat,
   hideModalMobileChat,
-} from '../../../redux/actions/Modals';
-import ModalAlert from '../Modals/ModalAlert';
+} from '../../../redux/actions/Modals'
+import ModalAlert from '../Modals/ModalAlert'
 
 const UICalls = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const showModalInputUserCondition = useSelector(
-    (state) => state.modals.showInputUser
-  );
+    (state) => state.modals.showInputUser,
+  )
   const showModalMobileChatCondition = useSelector(
-    (state) => state.modals.showMobileChat
-  );
+    (state) => state.modals.showMobileChat,
+  )
   const showModalSettingsSpaceShipCondition = useSelector(
-    (state) => state.modals.showSettingsSpaceship
-  );
+    (state) => state.modals.showSettingsSpaceship,
+  )
   const showModalSettingsRoomCondition = useSelector(
-    (state) => state.modals.showSettingsRoom
-  );
+    (state) => state.modals.showSettingsRoom,
+  )
   const showModalAlertCondition = useSelector(
-    (state) => state.modals.alert.show
-  );
+    (state) => state.modals.alert.show,
+  )
 
-  console.log(showModalMobileChatCondition);
-  console.log(showModalInputUserCondition);
+  console.log(showModalMobileChatCondition)
+  console.log(showModalInputUserCondition)
 
   useEffect(() => {
     // localStorage.setItem('user', 'Tom');
     if (!localStorage.getItem('userName')) {
-      dispatch(showModalInputUser());
+      dispatch(showModalInputUser())
     }
-  }, []);
+  }, [])
 
   return (
     <>
@@ -53,14 +53,14 @@ const UICalls = () => {
       )}
 
       {showModalMobileChatCondition && <ModalChat />}
-
+     
       {showModalSettingsRoomCondition && <ModalConfigGame />}
 
       {showModalSettingsSpaceShipCondition && <ModalSettingsSpaceShip />}
 
       {showModalAlertCondition && <ModalAlert />}
     </>
-  );
-};
+  )
+}
 
-export default UICalls;
+export default UICalls

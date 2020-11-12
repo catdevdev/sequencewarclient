@@ -37,10 +37,17 @@ const Game = () => {
     console.log(`${loadingStatus} - loading...`)
   })
 
+  unityContext.on('loaded', () => {
+    socket.emit('gameLoaded', roomId)
+  })
+
+  socket.on('game-MultipleSpawn', (jsonData) => {
+    unityContext.send('[ SpawnMultiple ]', 'Call', jsonData)
+  })
+
   return (
     <Background>
-      <Text>Game</Text>
-      <Unity unityContext={unityContext}></Unity>
+      <Unity width="70%" unityContext={unityContext}></Unity>
     </Background>
   )
 }

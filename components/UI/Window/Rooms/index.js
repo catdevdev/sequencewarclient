@@ -1,24 +1,24 @@
 /* imports */
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { useRouter } from 'next/router'
 /* components */
-import Container from '../../../Layout/Container';
-import Header from '../Header';
-import Table from '../Table';
-import MarginBlock from '../../../Layout/MarginBlock';
+import Container from '../../../Layout/Container'
+import Header from '../Header'
+import Table from '../Table'
+import MarginBlock from '../../../Layout/MarginBlock'
 /* redux */
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import {
   showModalSettingsSpaceShip,
   hideModalSettingsSpaceShip,
-} from '../../../../redux/actions/Modals';
+} from '../../../../redux/actions/Modals'
 import {
   setYouIsCreatorRoom,
   writeRoomId,
-} from '../../../../redux/actions/Room';
+} from '../../../../redux/actions/Room'
 /* socketio */
-import { socket } from '../../../Socket';
+import { socket } from '../../../Socket'
 
 const StyledRooms = styled.div`
   position: relative;
@@ -28,14 +28,14 @@ const StyledRooms = styled.div`
   border-bottom: 1px solid #fff;
 
   /* overflow: auto; */
-`;
+`
 const TableContainer = styled.div`
   margin: 0 auto;
   width: 80%;
   @media (max-width: 1350px) {
     width: 90%;
   }
-`;
+`
 const Button = styled.button`
   position: absolute;
   right: 28px;
@@ -50,7 +50,7 @@ const Button = styled.button`
 
   text-transform: uppercase;
   font-size: 16px;
-`;
+`
 const Rooms = ({}) => {
   const dataPrimary = [
     {
@@ -69,54 +69,9 @@ const Rooms = ({}) => {
     {
       data: 'test',
     },
-  ];
-  // const rowsData = [
-  //   [
-  //     {
-  //       data: '1/20',
-  //       center: true,
-  //     },
-  //     {
-  //       data: 'Infinity waves',
-  //     },
-  //     {
-  //       data: 'CATDEV',
-  //     },
-  //     {
-  //       data: 'Заходите все сюда!!!!! Noobs only!',
-  //     },
-  //     {
-  //       button: true,
-  //       data: 'Join',
-  //       center: true,
-  //       callback: (id) => {
-  //         console.log(id);
-  //       },
-  //     },
-  //   ],
-  // ];
+  ]
 
-  // const [rowsData, setRowsData] = useState();
-
-  // {
-  //   id: 'K2wAVlTot',
-  //   creator: {
-  //     socketId: '6nBGesAp_aX91DyIAAAw',
-  //     user: {
-  //       userName: 'фыва',
-  //       userColor: '#0049ff'
-  //     }
-  //   },
-  //   activated: true,
-  //   configs: {
-  //     limitPlayers: 'inf',
-  //     message: 'фывафыва',
-  //     mode: 'INFINITY'
-  //   },
-  //   users: []
-  // }
-
-  const rooms = useSelector((state) => state.rooms.rooms);
+  const rooms = useSelector((state) => state.rooms.rooms)
   const rowsData =
     rooms &&
     rooms.map(
@@ -140,16 +95,16 @@ const Rooms = ({}) => {
             data: 'Join',
             center: true,
             callback: () => {
-              socket.emit('joinRoom', id);
-              console.log(id);
+              socket.emit('joinRoom', id)
+              console.log(id)
             },
           },
-        ];
-      }
-    );
+        ]
+      },
+    )
 
-  const router = useRouter();
-  const dispatch = useDispatch();
+  const router = useRouter()
+  const dispatch = useDispatch()
 
   return (
     <StyledRooms>
@@ -174,13 +129,13 @@ const Rooms = ({}) => {
       </TableContainer>
       <Button
         onClick={() => {
-          socket.emit('createRoom');
+          socket.emit('createRoom')
         }}
       >
         Create new game
       </Button>
     </StyledRooms>
-  );
-};
+  )
+}
 
-export default Rooms;
+export default Rooms

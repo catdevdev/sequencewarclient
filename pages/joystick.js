@@ -16,9 +16,8 @@ const Joystick = () => {
     console.log(data.instance.frontPosition)
   }
 
-  const loadingGameStatus = useSelector((state) => state.room.loadingGameStatus)
-
-  const [loadingStatus, setLoadingStatus] = useState()
+  const loadingGameStatus = useSelector((state) => state.game.loadingGameStatus)
+  const gameStart = useSelector((state) => state.game.gameStart)
 
   const LoadingStatusJSX = (
     <>
@@ -89,8 +88,7 @@ const Joystick = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* {JoystickJSX} */}
-      {LoadingStatusJSX}
+      {gameStart ? JoystickJSX : LoadingStatusJSX}
     </>
   )
 }
