@@ -14,6 +14,11 @@ let chatMessages = []
 let rooms = []
 let gameSessions = []
 
+function randomNum(min, max) {
+  // min and max included
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
 io.on('connection', (socket) => {
   console.log('connection made')
 
@@ -112,17 +117,25 @@ io.on('connection', (socket) => {
     socket.emit('confirmJoinRoom', room)
   })
 
-  socket.on('startGame', (idRoom) => {
+  socket.on('startGameSession', (idRoom) => {
     console.log('||| START GAME |||')
     console.log(`idRoom: ${idRoom}`)
-  })
-
-  socket.on('loadingGame', ({ idRoom, loadingStatus }) => {
     const room = rooms.filter(({ id }) => id === idRoom)[0]
     const users = room.users
 
     users.map(({ id }) => {
-      io.to(id).emit('loadingGame', loadingStatus)
+      io.to(id).emit('startGameSession')
+    })
+  })
+
+  socket.on('loadingGameProcess', ({ idRoom, loadingStatus }) => {
+    console.log(`${idRoom} - loadingGameProcess`)
+    console.log(loadingStatus)
+    const room = rooms.filter(({ id }) => id === idRoom)[0]
+    const users = room.users
+
+    users.map(({ id }) => {
+      io.to(id).emit('loadingGameProcess', loadingStatus)
     })
   })
 
@@ -132,12 +145,110 @@ io.on('connection', (socket) => {
     const users = room.users
     console.log(users)
     users.map(({ id }) => {
-      io.to(id).emit('gameStart')      
+      io.to(id).emit('gameStart')
     })
-    socket.emit('sendToGameUsersData', {users})
+    // spawn users with joystick controller
+    console.log(users)
+    socket.emit(
+      'game-MultipleSpawn',
+      JSON.stringify({
+        spawns: users.map(
+          ({ id, user: { username }, team, colorSpaceship }) => {
+            return {
+              typeCall: 'spawn',
+              instantiate: {
+                type: 'playerJoystick',
+                id,
+                entityName: 'arrow',
+                nickName: username,
+                team,
+                color: colorSpaceship,
+              },
+              positionData: {
+                position: { x: randomNum(-1, 1), y: randomNum(-1, 1) },
+                rotate: { deg: randomNum(0, 360) },
+              },
+            }
+          },
+        ),
+      }),
+    )
   })
 
-  socket.on('joystickData', ({}))
+  /* spawns */
+  const spawnCall = {
+    spawns: [
+      {
+        typeCall: 'spawn',
+        instantiate: {
+          entityData: {
+            type: 'playerJoystick',
+            id: 'f4fjkd1dj3d4',
+            entityName: 'arrow',
+            nickName: 'lol228322',
+            team: '1',
+            color: '#aa23aa',
+          },
+          positionData: {
+            position: { x: 1, y: 1 },
+            rotate: { deg: 180 },
+          },
+        },
+      },
+      {
+        typeCall: 'spawn',
+        instantiate: {
+          entityData: {
+            type: 'playerJoystick',
+            id: '32fjkd1dj3d4',
+            entityName: 'arrow',
+            nickName: 'test2',
+            team: '1',
+            color: '#a323aa',
+          },
+          positionData: {
+            position: { x: 1, y: -1 },
+            rotate: { deg: 45 },
+          },
+        },
+      },
+      {
+        typeCall: 'spawn',
+        instantiate: {
+          entityData: {
+            type: 'playerJoystick',
+            id: '4afjkd1dj3d4',
+            entityName: 'arrow',
+            nickName: 'test3',
+            team: '1',
+            color: '#aa23aa',
+          },
+          positionData: {
+            position: { x: -1, y: -1 },
+            rotate: { deg: 34 },
+          },
+        },
+      },
+    ],
+  }
+
+  // (
+  //   /* users */
+  //   {
+  //     id: 'Xciic7Bt6arpOz7oAAAS',
+  //     user: { userName: 'asdfsdf', userColor: '#00ffb0' },
+  //     team: 1,
+  //     colorSpaceship: 'green',
+  //   },
+  //   {
+  //     id: 'zQCupa0b5SCNnCmwAAAZ',
+  //     user: { userName: 'asfsdf', userColor: '#fffe00' },
+  //     team: 1,
+  //     colorSpaceship: 'green',
+  //   },
+  // )
+
+  socket.on('joystickData', () => {})
 
   socket.on('leaveRoom', (idRoom) => {
     rooms = rooms.map((room) => {
@@ -202,30 +313,13 @@ app.server.listen(3000)
 
 console.log('Server has started')
 
-
-
-// const dataCall = {
-//   typeCall: "spawn",
-//   Instantiate: {
-//     entityData: {
-//       id: "f4fjkd1dj3d4",
-//       entityName: "arrow",
-//       nickName: "lol228322",
-//       team: "1",
-//       color: "#aa23aa",      
-//     },
-//     positionData: {
-//       position: {x: 10, y: 20},
-//       rotate: {deg: 90}
-//     }
-//   }
+// const movementCall = {
+//   posX: 50,
+//   posY: 30,
 // }
 
 // {
 //   "typeCall": "spawn",
 //   "Instantiate": {}
-
-
-
 
 // }
