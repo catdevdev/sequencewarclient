@@ -26,10 +26,10 @@ const Game = () => {
   const roomId = useSelector((state) => state.room.roomConfig.roomId)
 
   const unityContext = new UnityContext({
-    dataUrl: 'test6/Build/test6.data',
-    frameworkUrl: 'test6/Build/test6.framework.js',
-    loaderUrl: 'test6/Build/test6.loader.js',
-    codeUrl: 'test6/Build/test6.wasm',
+    dataUrl: 'test4/Build/test4.data',
+    frameworkUrl: 'test4/Build/test4.framework.js',
+    loaderUrl: 'test4/Build/test4.loader.js',
+    codeUrl: 'test4/Build/test4.wasm',
   })
 
   unityContext.on('progress', (loadingStatus) => {
@@ -43,6 +43,13 @@ const Game = () => {
 
   socket.on('game-MultipleSpawn', (jsonData) => {
     unityContext.send('[ SpawnMultiple ]', 'Call', jsonData)
+    console.log(jsonData)
+  })
+
+  socket.on('game-joystickController1', (jsonData) => {
+    const { id } = JSON.parse(jsonData)
+    console.log(jsonData)
+    unityContext.send(`playerJoystick-${id}`, 'Call', jsonData)
   })
 
   return (

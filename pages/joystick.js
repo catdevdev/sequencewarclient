@@ -9,6 +9,7 @@ import Bar from '../components/UI/Joystick/Bar'
 import LoadingStatusBar from '../components/UI/Joystick/LoadingStatusBar'
 /* redux */
 import { useSelector, useDispatch } from 'react-redux'
+import { socket } from '../components/Socket'
 
 const Joystick = () => {
   const handleEvent = (evt, data) => {
@@ -18,6 +19,8 @@ const Joystick = () => {
 
   const loadingGameStatus = useSelector((state) => state.game.loadingGameStatus)
   const gameStart = useSelector((state) => state.game.gameStart)
+  const idRoom = useSelector((state) => state.room.currentRoom.id)
+  const userId = useSelector((state) => state.user.id)
 
   const LoadingStatusJSX = (
     <>
@@ -66,15 +69,35 @@ const Joystick = () => {
       <div style={{ position: 'fixed', bottom: 100, left: 100 }}>
         <ReactNipple
           options={{ mode: 'static', position: { top: '50%', left: '50%' } }}
-          onMove={(evt, data) => console.log(evt, data)}
-          onMove={handleEvent}
+          onMove={(evt, data) => {
+            const posX = data.instance.frontPosition.x / 50
+            const posY = -data.instance.frontPosition.y / 50
+            console.log(`x: ${posX}, y: ${posY}`)
+            socket.emit('game-joystickController1', {
+              jsonData: JSON.stringify({ id: userId, posX, posY }),
+              idRoom,
+            })
+          }}
+          onEnd={() => {
+            socket.emit('game-joystickController1', {
+              jsonData: JSON.stringify({ id: userId, posX: 0, posY: 0 }),
+              idRoom,
+            })
+          }}
         />
       </div>
       <div style={{ position: 'fixed', bottom: 100, right: 100 }}>
         <ReactNipple
           options={{ mode: 'static', position: { top: '50%', left: '50%' } }}
-          onMove={(evt, data) => console.log(evt, data)}
-          onMove={handleEvent}
+          onMove={(evt, data) => {
+            const posX = data.instance.frontPosition.x / 50
+            const posY = -data.instance.frontPosition.y / 50
+            console.log(`x: ${posX}, y: ${posY}`)
+            socket.emit('game-joystickController2', {
+              jsonData: { id: userId, posX, posY },
+              idRoom,
+            })
+          }}
         />
       </div>
     </>
