@@ -26,8 +26,7 @@ io.on('connection', (socket) => {
     console.log(`Connection Made! id: ${socket.id} `)
     socket.user = user
     users.push(socket)
-
-    socket.emit('user', user)
+    socket.emit('user', { id: socket.id, ...user })
     socket.emit(
       'rooms',
       rooms.filter((room) => room.activated !== false),
@@ -149,30 +148,48 @@ io.on('connection', (socket) => {
     })
     // spawn users with joystick controller
     console.log(users)
-    socket.emit(
-      'game-MultipleSpawn',
-      JSON.stringify({
-        spawns: users.map(
-          ({ id, user: { username }, team, colorSpaceship }) => {
-            return {
-              typeCall: 'spawn',
-              instantiate: {
-                type: 'playerJoystick',
-                id,
-                entityName: 'arrow',
-                nickName: username,
-                team,
-                color: colorSpaceship,
-              },
-              positionData: {
-                position: { x: randomNum(-1, 1), y: randomNum(-1, 1) },
-                rotate: { deg: randomNum(0, 360) },
-              },
-            }
+    console.log(room)
+    
+    const jsonData = JSON.stringify({
+      spawns: users.map(({ id, user: { username }, team, colorSpaceship }) => {
+        return {
+          typeCall: 'spawn',
+          instantiate: {
+            entityData: {
+              type: 'playerJoystick',
+              id,
+              entityName: 'arrow',
+              nickName: username,
+              team,
+              color: colorSpaceship,
+            },
           },
-        ),
+          positionData: {
+            position: { x: randomNum(-7, 7), y: randomNum(-3, 3) },
+            rotate: { deg: randomNum(0, 360) },
+          },
+        }
       }),
-    )
+    })
+    setTimeout(() => {
+      socket.emit('game-MultipleSpawn', jsonData)
+    }, 3000)
+
+    // const movementCall = {
+    //   id: 3424323
+    //   posX: 50,
+    //   posY: 30,
+    // }
+  })
+
+  socket.on('game-joystickController1', ({ jsonData, idRoom }) => {
+    const room = rooms.filter(({ id }) => id === idRoom)[0]
+    io.to(room.creator.id).emit('game-joystickController1', jsonData)
+  })
+
+  socket.on('game-joystickController2', ({ jsonData, idRoom }) => {
+    const room = rooms.filter(({ id }) => id === idRoom)[0]
+    io.to(room.creator.id)
   })
 
   /* spawns */
