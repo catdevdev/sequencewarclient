@@ -149,8 +149,8 @@ io.on('connection', (socket) => {
     // spawn users with joystick controller
     console.log(users)
     console.log(room)
-    
-    const jsonData = JSON.stringify({
+
+    const jsonDataUsers = JSON.stringify({
       spawns: users.map(({ id, user: { username }, team, colorSpaceship }) => {
         return {
           typeCall: 'spawn',
@@ -165,15 +165,44 @@ io.on('connection', (socket) => {
             },
           },
           positionData: {
-            position: { x: randomNum(-7, 7), y: randomNum(-3, 3) },
+            position: { posX: randomNum(-7, 7), posY: randomNum(-3, 3) },
+            rotate: { deg: randomNum(0, 360) },
+          },
+        }
+      }),
+    })
+    const bots = [
+      { id: shortID.generate(), team: 0 },
+      { id: shortID.generate(), team: 0 },
+      { id: shortID.generate(), team: 0 },
+    ]
+    const jsonDataBots = JSON.stringify({
+      spawns: bots.map(({ id, team }) => {
+        return {
+          typeCall: 'spawn',
+          instantiate: {
+            entityData: {
+              type: 'playerBot',
+              id,
+              entityName: 'arrow',
+              nickName: `bot-${id}`,
+              team,
+              color: 'red',
+            },
+          },
+          positionData: {
+            position: { posX: randomNum(-7, 7), posY: randomNum(-3, 3) },
             rotate: { deg: randomNum(0, 360) },
           },
         }
       }),
     })
     setTimeout(() => {
-      socket.emit('game-MultipleSpawn', jsonData)
+      socket.emit('game-MultipleSpawn', jsonDataUsers)
     }, 3000)
+    setInterval(() => {
+      socket.emit('game-MultipleSpawn', jsonDataBots)
+    }, 10000)
 
     // const movementCall = {
     //   id: 3424323
