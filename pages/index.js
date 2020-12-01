@@ -77,7 +77,7 @@ export default function Home() {
         <MobileWindow>
           <WindowHeader>
             <p style={{ fontSize: 16, fontWeight: 700, letterSpacing: 1 }}>
-              ACTIVE GAMES (4)
+              ACTIVE GAMES (0)
             </p>
           </WindowHeader>
           <div>

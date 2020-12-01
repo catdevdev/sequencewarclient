@@ -49,11 +49,13 @@ const SocketCalls = () => {
       dispatch(removeRoom(id))
     })
     socket.on('createdRoom', (id) => {
+      console.log(123)
       dispatch(writeRoomId(id))
       dispatch(setYouIsCreatorRoom())
       router.push('/lobby')
     })
     socket.on('confirmJoinRoom', (room) => {
+      console.log('confirmJoinRoom')
       dispatch(setCurrentRoom(room))
       dispatch(setUsersCurrentRoom(room.users))
       console.log(room)
@@ -61,6 +63,7 @@ const SocketCalls = () => {
       router.push('/lobby')
     })
     socket.on('addUserInRoom', (user) => {
+      console.log('addUserInRoom')
       dispatch(addUserCurrentRoom(user))
     })
     socket.on('leaveYourselfFromRoom', () => {

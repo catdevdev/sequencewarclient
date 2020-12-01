@@ -22,6 +22,8 @@ const Joystick = () => {
   const idRoom = useSelector((state) => state.room.currentRoom.id)
   const userId = useSelector((state) => state.user.id)
 
+  console.log(userId);
+
   const LoadingStatusJSX = (
     <>
       <div

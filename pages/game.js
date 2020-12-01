@@ -26,10 +26,10 @@ const Game = () => {
   const roomId = useSelector((state) => state.room.roomConfig.roomId)
 
   const unityContext = new UnityContext({
-    dataUrl: 'test4/Build/test4.data',
-    frameworkUrl: 'test4/Build/test4.framework.js',
-    loaderUrl: 'test4/Build/test4.loader.js',
-    codeUrl: 'test4/Build/test4.wasm',
+    dataUrl: 'test6/Build/test6.data',
+    frameworkUrl: 'test6/Build/test6.framework.js',
+    loaderUrl: 'test6/Build/test6.loader.js',
+    codeUrl: 'test6/Build/test6.wasm',
   })
 
   unityContext.on('progress', (loadingStatus) => {

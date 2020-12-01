@@ -1,23 +1,23 @@
 /* imports */
-import styled from 'styled-components';
+import styled from 'styled-components'
 /* components */
-import Header from '../Header';
+import Header from '../Header'
 /* redux */
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import {
   showModalInputUser,
   hideModalInputUser,
-} from '../../../../redux/actions/InputName';
-import { onUser } from '../../../../redux/actions/User';
-import { onUsers } from '../../../../redux/actions/Users';
-import { socket } from '../../../Socket';
+} from '../../../../redux/actions/InputName'
+import { onUser } from '../../../../redux/actions/User'
+import { onUsers } from '../../../../redux/actions/Users'
+import { socket } from '../../../Socket'
 
 const StyledOnline = styled.div`
   width: 100%;
   height: 100%;
 
   border-left: 1px solid #fff;
-`;
+`
 const Heading = styled.p`
   text-transform: uppercase;
 
@@ -27,19 +27,19 @@ const Heading = styled.p`
   color: ${({ color }) => color};
 
   margin-bottom: 10px;
-`;
+`
 const Nickname = styled.p`
   font-size: 14px;
   font-weight: 700;
 
   color: ${({ color }) => color};
-`;
+`
 
 const Online = ({}) => {
-  const dispatch = useDispatch();
-  const users = useSelector((state) => state.users);
+  const dispatch = useDispatch()
+  const users = useSelector((state) => state.users)
 
-  let usersJXS;
+  let usersJXS
   if (users.length) {
     usersJXS = (
       <div style={{ width: '60%', margin: '15px auto', textAlign: 'center' }}>
@@ -48,10 +48,10 @@ const Online = ({}) => {
             <Nickname key={index} color={userColor}>
               {userName}
             </Nickname>
-          );
+          )
         })}
       </div>
-    );
+    )
   }
 
   return (
@@ -66,7 +66,7 @@ const Online = ({}) => {
             textAlign: 'center',
           }}
         >
-          ONLINE (7)
+          ONLINE ({users.length})
         </p>
       </Header>
 
@@ -88,7 +88,7 @@ const Online = ({}) => {
         <Nickname color="#FFE600">Jotaro444</Nickname>
       </div> */}
     </StyledOnline>
-  );
-};
+  )
+}
 
-export default Online;
+export default Online

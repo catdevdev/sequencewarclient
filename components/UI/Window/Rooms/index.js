@@ -117,7 +117,7 @@ const Rooms = ({}) => {
             marginLeft: '22px',
           }}
         >
-          ACTIVE GAMES (4)
+          ACTIVE GAMES (0)
         </p>
       </Header>
       <TableContainer>
@@ -130,6 +130,7 @@ const Rooms = ({}) => {
       <Button
         onClick={() => {
           socket.emit('createRoom')
+          console.log(123);
         }}
       >
         Create new game
