@@ -1,0 +1,1 @@
+{"ast":null,"code":"const Header = () => {};","map":{"version":3,"sources":["/Users/vlad/Desktop/projects/UnityProjects/sequencewarclient/components/Layout/Header/index.js"],"names":["Header"],"mappings":"AAAA,MAAMA,MAAM,GAAG,MAAM,CAEpB,CAFD","sourcesContent":["const Header = () => {\n    \n}"]},"metadata":{},"sourceType":"script"}
