@@ -6,8 +6,6 @@ const shortID = require('shortid')
 const app = express()
 app.server = http.createServer(app)
 const io = require('socket.io')(app.server)
-/* utils */
-const removeElementByName = require('./utils')
 /* data */
 let users = []
 let chatMessages = []
