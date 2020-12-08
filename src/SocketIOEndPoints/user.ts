@@ -14,6 +14,7 @@ class UserSocket {
     // storage.Users.
     /* logic */
     socket.on('user', (user) => {
+      
       storage.Users.Add(new User(socket.id, user.userName, user.userColor))
       socket.emit('user', { id: socket.id, ...user })
       socket.emit(

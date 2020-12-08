@@ -24,6 +24,7 @@ class SocketIOEndPoints {
   ) {}
   /* init all socketEndPoints */
   /*  */
+
   user = new UserSocket(this.socket, this.io, this.storage)
   message = new MessageSocket(this.socket, this.io, this.storage)
   createRoom = new CreatedRoomSocket(this.socket, this.io, this.storage)

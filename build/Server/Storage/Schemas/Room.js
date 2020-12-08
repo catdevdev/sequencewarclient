@@ -24,11 +24,11 @@ var Room = /** @class */ (function () {
         this._creator = creator;
         this._activated = false;
     }
-    Room.prototype.AddUser = function (user) {
-        // this._users.push(user)
-    };
-    Room.prototype.RemoveUser = function (id) { };
     Object.defineProperty(Room.prototype, "Id", {
+        // AddUser(user: User) {
+        //   // this._users.push(user)
+        // }
+        // RemoveUser(id: string) {}
         get: function () {
             return this._id;
         },

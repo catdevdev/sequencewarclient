@@ -14,14 +14,7 @@ class CreatedRoomSocket {
     socket.on('createRoom', () => {
       const user = storage.Users.GetById(socket.id)
       storage.Rooms.Add(new Room(user))
-      // rooms.push({
-      //   id: shortID.generate(),
-      //   creator: { id: socket.id, user },
-      //   activated: false,
-      //   configs: { limitPlayers: null, message: null, mode: null },
-      //   users: [],
-      // })
-      // socket.emit('createdRoom', rooms[rooms.length - 1].id)
+
       socket.emit(
         'createdRoom',
         storage.Rooms.Rooms[storage.Rooms.Rooms.length - 1].Id,

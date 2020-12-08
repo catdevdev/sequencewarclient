@@ -17,12 +17,8 @@ class Server {
     const io: SocketIO.Server = require('socket.io')(app.server)
 
     const storage = new Storage()
-
+    
     const socketIO = new SocketIO(io, storage)
-
-    /*  */
-    // socketIO.storage(storage)
-    /*  */
 
     app.server.listen(port)
   }

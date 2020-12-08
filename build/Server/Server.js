@@ -16,9 +16,6 @@ var Server = /** @class */ (function () {
         var io = require('socket.io')(app.server);
         var storage = new Storage_1.Storage();
         var socketIO = new SocketIO_1.SocketIO(io, storage);
-        /*  */
-        // socketIO.storage(storage)
-        /*  */
         app.server.listen(port);
     }
     return Server;

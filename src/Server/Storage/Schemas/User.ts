@@ -16,7 +16,7 @@ class User {
     this._fontColor = fontColor
     this._team = 1
     this._colorSpaceship = 'green'
-  }
+  }  
 
   get Id(): string {
     return this._id

@@ -34,10 +34,10 @@ class Room {
     this._activated = false
   }
 
-  AddUser(user: User) {
-    // this._users.push(user)
-  }
-  RemoveUser(id: string) {}
+  // AddUser(user: User) {
+  //   // this._users.push(user)
+  // }
+  // RemoveUser(id: string) {}
 
   get Id(): string {
     return this._id
